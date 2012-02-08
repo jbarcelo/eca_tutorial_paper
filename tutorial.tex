@@ -406,14 +406,15 @@
 % was not built to handle multiple paragraphs
 %
 
-\author{Jaume~Barcelo,~%\IEEEmembership{Member,~IEEE,}
-        Boris~Bellalta,~%\IEEEmembership{Member,~IEEE,}
-        Miquel~Oliver,~%\IEEEmembership{Member,~IEEE,}
-        and~David~Malone%~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
-\thanks{J. Barcelo is with the Dept. de Ingenieria Telematica, Universidad Carlos III de Madrid, Spain (email:jaume.barcelo@uc3m.es).\newline
-B. Bellata is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:boris.bellalta@upf.edu).\newline
-M. Oliver is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:miquel.oliver@upf.edu).\newline
-D. Malone is with the Hamilton Institute, National University of Ireland, Maynooth, Ireland (email:David.Malone@nuim.ie)}%
+\author{
+%	Jaume~Barcelo,~%\IEEEmembership{Member,~IEEE,}
+%        Boris~Bellalta,~%\IEEEmembership{Member,~IEEE,}
+%        Miquel~Oliver,~%\IEEEmembership{Member,~IEEE,}
+%        and~David~Malone%~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+%\thanks{J. Barcelo is with the Dept. de Ingenieria Telematica, Universidad Carlos III de Madrid, Spain (email:jaume.barcelo@uc3m.es).\newline
+%B. Bellata is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:boris.bellalta@upf.edu).\newline
+%M. Oliver is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:miquel.oliver@upf.edu).\newline
+%D. Malone is with the Hamilton Institute, National University of Ireland, Maynooth, Ireland (email:David.Malone@nuim.ie)}%
 }
 
 
@@ -699,46 +700,6 @@ The construction of a collision-free schedule in CSMA/ECA is just an instance of
 The stochastic decentralized CSP solver that we have implicitly introduced in the previous section guarantees that a solution will be found in finite time, if the solution exist.
 Furthermore, its performance is competitive with some of the well-known centralized CSP solvers.
 
-\subsection{Performance of CSMA/ECA}
-
-A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
-One the characteristics of the construction of the collision-free schedule is that it requires some time.
-The network goes through a transient state in which some of the stations use a deterministic backoff while the remaining stations use a random backoff.
-When the collision-free schedule is eventually reached, the system moves to a deterministic steady state.
-An analytical model of the system is presented which can be used to make predictions about the length of transient state.
-
-The article also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors and channel errors.
-Different performance metrics such as throughput, delay and collision probability are evaluated and both saturated and non-saturated traffic is considered.
-The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
-Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
-This gives an idea of how similar the protocol is to the legacy one and how easy it would be to include the approach in new devices.
-
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=6.0in]{figures/csma_eca_different_backoff}
-\caption{Schedule length distributed adaption example. All the stations transmit the same number of packets in each cycle, despite using different schedule lengths.}
-\label{fig:csma_eca_different_backoff}
-\end{figure*}
-
-The aspect of backward compatibility is addressed in \cite{barcelo2010fcc} where simulation is used to draw conclusions about the joint operation of CSMA/CA and CSMA/ECA stations in mixed scenarios. 
-The results show that both protocols are interoperable and can fairly coexist in the same network.
-CSMA/ECA stations will experience a slightly better performance than CSMA/CA stations, and the participation of legacy stations prevents the construction of a collision-free schedule.
-Nevertheless, it is remarkable that the mix of new and legacy stations attains a better performance than a network in which all the stations follow the legacy protocol.
-
-Backward compatibility is of paramount importance for any improvement to be adopted in WLANs, since there is a large base of deployed hardware that will not be thrown away overnight.
-The possibility of CSMA/ECA to peacefully coexist with the previous protocol ensures a smooth transition from one protocol to the other, with a coexistence period in which both protocols will interoperate.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\linewidth]{figures/performance}
-\caption{The figure compares the analytical and simulation performance curves of CSMA/CA and CSMA/E2CA for an increasing number of contenders.}
-\label{fig:performance}
-\end{figure}
-
-A detailed performance evaluation of the new protocol is offered in \cite{martorell2012pec}.
-This paper presents an analytical idealized model and simulations that use realistic channel realizations and the automated rate fallback (ARF) mechanism for the selection of the modulation coding scheme (MCS).
-An exponentially packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial goodput improvement, for both the basic access (BA) and the request-to-send/clear-to-send scheme (RTS/CTS).
-
 \subsection{Refinements}
 
 Some improvements on top of the basic idea described in Sec.~\ref{sec:eca} are presented in \cite{fang2011dlm}. 
@@ -756,6 +717,13 @@ However, reaching this goal in a distributed fashion without requiring any kind 
 The solution proposed in \cite{fang2011dlm} is simple and effective.
 A station that perceives a high collision probability will double the deterministic backoff that it uses after successful transmissions.
 The original paper \cite{fang2011dlm} does not specify the mechanism and a simple approach would be to double the deterministic backoff for each collision that has been suffered prior to the successful transmission.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=6.0in]{figures/csma_eca_different_backoff}
+\caption{Schedule length distributed adaption example. All the stations transmit the same number of packets in each cycle, despite using different schedule lengths.}
+\label{fig:csma_eca_different_backoff}
+\end{figure*}
 
 The beautiful aspect of this approach is that the station that doubles its deterministic backoff will also double the number of packets that are transmitted every time that it accesses the medium.
 Using this trick, the number of available slots increases, since the backoff has been doubled.
@@ -802,6 +770,39 @@ This station uses a deterministic backoff (i.e., sticks to the same column in th
 Despite the collision, this station keeps using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
 As a result, the station sticks to the same column avoiding collisions with other stations that have successfully transmitted.
 Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11 suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
+
+\subsection{Performance of CSMA/ECA and CSMA/E2CA}
+
+A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
+One the characteristics of the construction of the collision-free schedule is that it requires some time.
+The network goes through a transient state in which some of the stations use a deterministic backoff while the remaining stations use a random backoff.
+When the collision-free schedule is eventually reached, the system moves to a deterministic steady state.
+An analytical model of the system is presented which can be used to make predictions about the length of transient state.
+
+The article also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors and channel errors.
+Different performance metrics such as throughput, delay and collision probability are evaluated and both saturated and non-saturated traffic is considered.
+The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
+Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
+This gives an idea of how similar the protocol is to the legacy one and how easy it would be to include the approach in new devices.
+
+The aspect of backward compatibility is addressed in \cite{barcelo2010fcc} where simulation is used to draw conclusions about the joint operation of CSMA/CA and CSMA/ECA stations in mixed scenarios. 
+The results show that both protocols are interoperable and can fairly coexist in the same network.
+CSMA/ECA stations will experience a slightly better performance than CSMA/CA stations, and the participation of legacy stations prevents the construction of a collision-free schedule.
+Nevertheless, it is remarkable that the mix of new and legacy stations attains a better performance than a network in which all the stations follow the legacy protocol.
+
+Backward compatibility is of paramount importance for any improvement to be adopted in WLANs, since there is a large base of deployed hardware that will not be thrown away overnight.
+The possibility of CSMA/ECA to peacefully coexist with the previous protocol ensures a smooth transition from one protocol to the other, with a coexistence period in which both protocols will interoperate.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{figures/performance}
+\caption{The figure compares the analytical and simulation performance curves of CSMA/CA and CSMA/E2CA for an increasing number of contenders.}
+\label{fig:performance}
+\end{figure}
+
+A detailed performance evaluation of the new protocol is offered in \cite{martorell2012pec}.
+This paper presents an analytical idealized model and simulations that use realistic channel realizations and the automated rate fallback (ARF) mechanism for the selection of the modulation coding scheme (MCS).
+An exponentially packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial goodput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
 
 
 \section{Conclusion} \label{sec:conclusion}
