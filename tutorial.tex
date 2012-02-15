@@ -474,15 +474,13 @@
 %\boldmath
 In wireless local area networks (WLANs), a media access protocol arbitrates the access to the channel.
 In current IEEE 802.11 WLANs (popularly known by its certification name, WiFi), carrier sense multiple access with collision avoidance (CSMA/CA) is used.
-The contending stations that use CSMA/CA do not make any attempt to agree on a collision-free schedule.
-A collision-free schedule is advantageous because the stations take turns in transmitting and collisions do not occur.
 Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle variant of the well-known CSMA/CA algorithm in which the different stations construct a collision-free schedule.
 The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic backoff after successful transmissions.
 This deterministic backoff is a constant and is the same for all the stations.
 
-The construction of the collision-free schedule automatically translates into performance gains.
 The first part of the article is of tutorial nature, offering an introduction to the basic operation of CSMA/ECA and describing the benefits of this approach in a qualitative manner.
 The second part of the article surveys the main contributions to this research field, briefly summarizing the main challenges and potential solutions, and also introducing variants and derivatives of CSMA/ECA.
+Finally, performance of results are included that confirm the advantages of the proposed approach.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -531,7 +529,7 @@ The second part of the article surveys the main contributions to this research f
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
 \IEEEPARstart{T}{he} sharing of a communication medium as a common resource by multiple stations is a classic communications problem. 
-The success of the AlohaNet network \cite{abramson2009asw} opened the doors to the use random protocols for media access control (MAC) in those wireless networks in which several stations were sharing the same channel.
+The AlohaNet network \cite{abramson2009asw} pioneered the use random protocols for media access control (MAC) in those wireless networks in which several stations were sharing the same channel.
 In the Aloha protocol, a station transmits as soon as it receives a packet from the upper layers of the protocol stack.
 A caveat of random media access protocols is that it is possible that at some point of time there is more than one station accessing the channel.
 If this is the case, the resultant interference may prevent the correct reception of the transmission.
