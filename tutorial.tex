@@ -558,11 +558,13 @@ However, Reservation Aloha also introduces some complexities, such as choosing t
 %A media access protocol that is closely related to Reservation Aloha is Packet Reservation Multiple Access \cite{goodman1989prm} where periodic traffic uses reservation and the remaining traffic uses random access.
 A common characteristic of Slotted Aloha and Reservation Aloha is that they all use fixed size slots.
 
-In those networks where the propagation times are short compared to the duration of the transmission of a packet, the duration of empty slots can be much shorter than busy slots, thus substantially increasing the network performance.
-This is possible, because the stations can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
+In those networks where the propagation times are short compared to the duration of the transmission of a packet and all the stations can hear each other's transmissions, the duration of empty slots can be much shorter than busy slots.
+Short empty slots increase the network performance, since the channel is idle for a smaller fraction of time and therefore there is more time for successful channel transmissions.
+It is possible to shorten empty slots because the stations can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
 This technique is called carrier sense multiple access (CSMA) and  it is used in wireless local area networks (WLANs) that implement the IEEE 802.11 standard.
 IEEE 802.11 WLANs are popularly known by its certification name, WiFi, and are prevalent in the marketplace.
 It is not the goal of this paper to delve into the details of the standard, but we will use it as a reference CSMA implementation.
+We will also constrain our presentation to those scenarios in which CSMA is applicable: WLANs in which the devices are close to each other and can hear each other's transmissions.
 
 In recent years, different research initiatives have suggested to combine the advantages of Reservation Aloha networks and CSMA networks (e.g., \cite{he2009srb,barcelo2010fcc,fang2011dlm,barcelo2011tcf}). 
 The goal is to distributively construct a collision-free schedule that repeats periodically.
@@ -743,7 +745,7 @@ This approach can be better understood by means of an example.
 Consider Fig. \ref{fig:csma_eca_different_backoff} in which three stations have reached a collision-free schedule.
 Notice that the schedule length of the bottom station is twice as long as the schedule length of the other two stations.
 The reason might be that this station has suffered a collision collisions or channel error prior to the first successful transmission.
-Nevertheless, all the stations fairly share the channel, since the stations with short schedules transmit a single packet and the station with the long schedule transmits two packets when it is its turn.
+Nevertheless, all the stations fairly share the channel, since the stations with short schedulestransmit a single packet and the station with the long schedule transmits two packets when it is its turn.
 Transmitting more than one packet when accessing the channel is possible and the latest revision of the IEEE 802.11 standard includes the necessary mechanisms for transmitting two or more packets back-to-back.
 At the end of the large cycle of 32 slots, all the stations have transmitted two packets.
 
@@ -768,17 +770,17 @@ At the end of the large cycle of 32 slots, all the stations have transmitted two
 %This deterministic nature can be appealing for manufacturers, since it simplifies the implementation.
 %CSMA/E2CA also provides all the advantages that come with stickiness: shorter convergence time and further schedule resistance to channel errors and new entrants.
 
-If the CSMA/ECA is used as described in Sect.~\ref{sec:eca}, the entry of a new contender or a single channel error can disrupt collision-free operation.
+If CSMA/ECA is used as described in Sect.~\ref{sec:eca}, the entry of a new contender or a single channel error can disrupt collision-free operation.
 To address this problem, stickiness was introduced in \cite{fang2011dlm} and later discussed in \cite{barcelo2011tcf} in a protocol called CSMA/E2CA.
 In CSMA/E2CA, a station sticks to the use of a deterministic backoff for two consecutive times after each successful transmission.
 In other words, a station that is using a deterministic backoff will only switch to a random behaviour if it suffers two contiguous unsuccessful transmissions.
 
 The operation of CSMA/E2CA is illustrated in Fig. \ref{fig:csma_e2ca}.
-In this figure, there is a station that successfully transmits in slot 11.
+In this figure, there is a station that successfully transmits in slot~11.
 This station uses a deterministic backoff (i.e., sticks to the same column in this particular graphical representation) and then it suffers a collision in its next transmission attempt in slot 27.
 Despite the collision, this station keeps using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
 As a result, the station sticks to the same column avoiding collisions with other stations that have successfully transmitted.
-Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11 suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
+Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11, suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
 
 \subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
@@ -794,7 +796,7 @@ The authors conclude that the variant of the protocol that uses a deterministic 
 Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
 This gives an idea of how similar the protocol is to the legacy one and how easy it would be to include the approach in new devices.
 
-The aspect of backward compatibility is addressed in \cite{barcelo2010fcc} where simulation is used to draw conclusions about the joint operation of CSMA/CA and CSMA/ECA stations in mixed scenarios. 
+Fairness of the new protocol with regard to legacy stations is addressed in \cite{barcelo2010fcc}.
 The results show that both protocols are interoperable and can fairly coexist in the same network.
 CSMA/ECA stations will experience a slightly better performance than CSMA/CA stations, and the participation of legacy stations prevents the construction of a collision-free schedule.
 Nevertheless, it is remarkable that the mix of new and legacy stations attains a better performance than a network in which all the stations follow the legacy protocol.
