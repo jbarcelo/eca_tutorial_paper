@@ -685,10 +685,9 @@ As in the previous example in Fig.~\ref{fig:csma_eca}, in the CSMA/ECA example i
 For convenience, the slots have been arranged in such a way that a deterministic backoff is represented by a new transmission in the same column of the following row.
 As an example, the CSMA/ECA station that successfully transmits in slot 1 transmits again in slot 17, in the same column.
 If we focus in the two CSMA/ECA stations that collide in slot 7, we realize that they use a random backoff which means that the new transmissions will probably end up in a different column.
-In this particular example, the colliding stations in slot 7 retransmit in slot 17 and 27 respectively.
-%Every time that a station suffers a collision, it uses a random backoff looking for an empty slot.
-In CSMA/ECA, when all the stations consecutively successfully transmit, they all stick to the same column and the collision-free schedule has already been constructed.
-This is exactly what we can observe in the last two rows of Fig. \ref{fig:csma_eca_compact}.
+In this particular example, the colliding stations in slot 7 retransmit in slot 17 and 27.
+In CSMA/ECA, when all the stations consecutively successfully transmit, they all stick to the same column.
+At this point, the collision-free schedule has already been constructed as we can observe in the last two rows of Fig. \ref{fig:csma_eca_compact}.
 
 The construction of the collision-free schedule results in important performance gains in terms of throughput as we will see in the next section.
 CSMA/ECA delivers a performance advantage even before the collision-free schedule is completely constructed.
@@ -713,12 +712,12 @@ This section has covered the basic idea that enables the construction of a colli
 \label{sec:survey}
 %It is not the intention of this section to provide an exhaustive survey of all the contributions that deal with the construction of a collision-free schedule.
 In this section we will comment on a small subset of contributions to offer an overview of some of the problems and enhancements of the basic idea that we have described in the previous section. 
-Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors and operation in networks with a very large number of contenders. 
+Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
 Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, it has been recently shown that the underlying mathematical framework is applicable to disparate resource allocation problems in the field of networking, such as channel selection for channel spatial reuse and network coding \cite{duffy2011dcs}.
 The construction of a collision-free schedule in CSMA/ECA is just an instance of a Constraint Satisfaction Problem (CSP) that the participating entities need to solve without explicit communication.
-It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver that we have implicitly introduced in the previous section guarantees that a solution will be found in finite time, if the solution exists.
+It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver (which is a generalization of the protocol that we have introduced in the previous section) guarantees that a solution will be found in finite time, if the solution exists.
 Furthermore, its performance is competitive with some of the well-known centralized CSP solvers.
 
 \subsection{Refinements}
@@ -803,6 +802,9 @@ Different performance metrics such as throughput, delay and collision probabilit
 The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
 Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
 This gives an idea of how similar the protocol is to the legacy one and how easy it would be to include the approach in new devices.
+
+Many performance aspects also covered in \cite{fang2011dlm}.
+That article offers a comparative among different learning MAC protocols, and studies the speed of convergence, performance in unsaturated scenarios and in the presence of errors and legacy stations.
 
 Fairness of the new protocol with regard to legacy stations is addressed in \cite{barcelo2010fcc}.
 The results show that both protocols are interoperable and can fairly coexist in the same network.
