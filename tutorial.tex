@@ -632,7 +632,7 @@ This deterministic backoff is constant and is the same for all the stations.
 As a result, two stations that successfully transmit in two different slots will not collide amongst themselves in their next transmission attempt.
 
 %This is the key idea in CSMA/ECA and it is illustrated by the following example.
-Imagine that two stations $STA1$ and $STA2$ successfully transmit in two different slots (for our example we will assume that these are slot $X$ and slot $Y$, respectively),  and then they both backoff for the same number of slots $V$.
+Imagine that two stations STA 1 and STA 2 successfully transmit in two different slots (for our example we will assume that these are slot $X$ and slot $Y$, respectively),  and then they both backoff for the same number of slots $V$.
 Their next transmission attempt occurs at slot $X+V$ and $Y+V$, which are different (since $X$ and $Y$ are different).
 
 The behaviour of CSMA/CA and CSMA/ECA is depicted in Fig.~\ref{fig:ca_vs_eca}.
@@ -641,7 +641,8 @@ The channel time is slotted and some slots are empty while others are busy with 
 If realistic channels are considered, it is also possible that a busy slot contains a transmission that cannot be decoded due to unfavorable channel conditions.
 Nevertheless, in this tutorial introduction, we will consider only an ideal channel that does not introduce errors.
 
-The busy slots are in practice much longer than the empty ones, although the figure is not to scale for the ease of representation.
+The figure is not to scale for the ease of representation.
+In reality, the busy slots are much longer than the empty ones, 
 The figure also shows the backoff value of each of the two competing stations in each slot, and the tiny arrows indicate whether the backoff is randomly or deterministically selected.
 
 It can be observed that the backoff value is decremented by one in every slot and that a station transmits when its backoff counter reaches a value equal to zero.
@@ -661,8 +662,8 @@ The CSMA/CA stations in Fig.~\ref{fig:csma_ca} always use a random backoff, whic
 %Therefore, the colliding stations keep on transmitting the whole packet and the duration of the collision is equal to the duration of the longest of the transmissions involved in the collision.
 It is useful to compare the behaviour of CSMA/CA in Fig. \ref{fig:csma_ca} to the behaviour of CSMA/ECA in Fig. \ref{fig:csma_eca}.
 The initial behaviour is exactly the same for the two protocols: a collision occurs and a random backoff is selected.
-However, after the first successful transmission of $STA 1$ we can observe that the CSMA/ECA station deterministically chooses its backoff value.
-The same occurs after the first successful transmission of $STA 2$.
+However, after the first successful transmission of STA 1 we can observe that the CSMA/ECA station deterministically chooses its backoff value.
+The same occurs after the first successful transmission of STA 2.
 The fact that the stations have successfully transmitted in different slots and use the same deterministic backoff value guarantees that these two stations will not collide in their next transmission attempt.
 %In fact, by choosing the same deterministic backoff, these two stations are in order to prevent a collision in the future.
 From this point on, the behaviour of the system is collision-free, deterministic, cyclic and fair.
@@ -703,7 +704,7 @@ In the extreme case in which the stations join the contention to transmit a sing
 
 A key aspect in the proposed protocol is that of the schedule length, which is equivalent to the deterministic backoff used after successful transmissions.
 If the schedule length is excessively large compared to the number of contenders, the large number of empty slots will slightly penalize the performance.
-On the other hand, if the schedule is too short, it would not be possible to accommodate the collision-free operation of all the participants.
+On the other hand, if the schedule is too short, it will not be possible to accommodate the collision-free operation of all the participants.
 As it is pointed out in \cite{fang2011dlm}, it is better to have a schedule that is larger than the number of contenders than having a one that it is shorter.
 The reason is that empty slots are much shorter than collision slots.
 We discuss in the next section the possibility to adapt the schedule length in a distributed way.
@@ -809,9 +810,9 @@ The paper also presents a comprehensive simulation study which includes realisti
 Different performance metrics such as throughput, delay and collision probability are evaluated and both saturated and non-saturated traffic is considered.
 The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
 Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
-This gives an idea of how similar the protocol is to the legacy one and how easy it would be to include the approach in new devices.
+This gives an idea of how similar the proposed protocol is to the legacy one,  and how easy it would be to include the proposed protocol in new devices.
 
-Many performance aspects also covered in \cite{fang2011dlm}.
+Many performance aspects are covered in \cite{fang2011dlm}.
 That article offers a comparative among different learning MAC protocols, and studies the speed of convergence, performance in unsaturated scenarios and in the presence of errors and legacy stations.
 
 Fairness of the new protocol with regard to legacy stations is addressed in \cite{barcelo2010fcc}.
@@ -836,13 +837,13 @@ An exponentially packet length distribution is considered and the curves that co
 
 \section{Conclusion} \label{sec:conclusion}
 In this paper we have presented a tutorial description of CSMA/ECA, a wireless MAC protocol in which the participating devices construct a collision-free schedule.
-An interesting property is that this collaboration neither requires additional processing costs nor message interchange.
+An interesting property is that this protocol neither requires additional processing costs nor message interchange.
 All that is needed, is that the stations use a deterministic backoff after successful transmissions.
 
 By doing so, it is guaranteed that two stations that successfully transmitted in their last transmission attempt will not collide among them in their next transmission attempt.
 Furthermore, in ideal conditions, the system will reach a steady-state in which all the stations transmit in a round-robin fashion in a collision-free schedule.
 
-Obviously, those ideal conditions are not always satisfied, and in the second part of the paper we have reviewed different contributions that either assess the performance of the system in those non-ideal conditions or suggest improvements to deal with the non-idealities.
+In the second part of the paper we have reviewed different contributions that either assess the performance of the system in non-ideal conditions or suggest improvements to deal with the non-idealities.
 We have discussed the distributed adjustment of the schedule length to accommodate a potentially large number of contenders in a collision-free fashion.
 And we have also introduced stickiness, which reduces the time required to construct the collision-free schedule and increases the robustness of the schedule in scenarios with channel errors or new stations joining the channel.
 
