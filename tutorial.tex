@@ -796,32 +796,32 @@ Transmitting more than one packet when accessing the channel is possible and the
 
 If CSMA/ECA is used as described in Sect.~\ref{sec:eca}, the entry of a new contender or a single channel error can disrupt collision-free operation.
 To address this problem, stickiness was introduced in \cite{fang2011dlm} and later discussed in \cite{barcelo2011tcf} in a protocol called CSMA/E2CA.
-In CSMA/E2CA, a station sticks to the use of a deterministic backoff for two consecutive times after each successful transmission.
-In other words, a station that is using a deterministic backoff will only switch to a random behaviour if it suffers two contiguous unsuccessful transmissions.
+In CSMA/E2CA, a station that is using a deterministic backoff will only switch to a random behaviour if it suffers two consecutive unsuccessful transmissions.
 
 The operation of CSMA/E2CA is illustrated in Fig. \ref{fig:csma_e2ca}.
 In this figure, there is a station that successfully transmits in slot~11.
-This station uses a deterministic backoff (i.e., sticks to the same column in this particular graphical representation) and then it suffers a collision in its next transmission attempt in slot 27.
-Despite the collision, this station keeps using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
-As a result, the station sticks to the same column avoiding collisions with other stations that have successfully transmitted.
+This station uses a deterministic backoff and then it suffers an unsuccessful  transmission in its next transmission attempt in slot 27.
+Despite the collision, this station sticks to using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
 Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11, suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
+
+With the use of stickiness, the constructed schedule is much more robust, as deterministic stations will not move back to random behaviour after a single unsuccessful transmission.
+This unsuccessful transmission can be caused either by a random station or a channel error.
 
 \subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
 A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
-One the characteristics of the construction of the collision-free schedule is that it requires some time.
+One of the characteristics of CSMA/ECA is that reaching a collision-free schedule may require several transmission rounds.
 The network goes through a transient state in which some of the stations use a deterministic backoff while the remaining stations use a random backoff.
 When the collision-free schedule is eventually reached, the system moves to a deterministic steady state.
-An analytical model of the system is presented which can be used to make predictions about the length of transient state.
+An analytical model of the system is presented \cite{he2009srb} which can be used to make predictions about the length of the transient state.
 
-The paper also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors and channel errors.
-Different performance metrics such as throughput, delay and collision probability are evaluated and both saturated and non-saturated traffic is considered.
-The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
-Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
+The paper also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors, and channel errors.
+Different performance metrics such as throughput, delay, and collision probability are evaluated, and both saturated and non-saturated traffic is considered.
+The authors conclude that a protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
+Interestingly, the authors remark that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
 This gives an idea of how similar the proposed protocol is to the legacy one,  and how easy it would be to include the proposed protocol in new devices.
 
-Many performance aspects are covered in \cite{fang2011dlm}.
-That article offers a comparative among different learning MAC protocols, and studies the speed of convergence, performance in unsaturated scenarios and in the presence of errors and legacy stations.
+Many performance aspects are covered in \cite{fang2011dlm}, which offers a comparison among different learning MAC protocols, and studies the speed of convergence and performance in unsaturated scenarios and in the presence of errors and legacy stations.
 
 Fairness of the new protocol with regard to legacy stations is addressed in \cite{barcelo2010fcc}.
 The results show that both protocols are interoperable and can fairly coexist in the same network.
@@ -839,8 +839,8 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 \end{figure}
 
 A detailed performance evaluation of the new protocol is offered in \cite{martorell2012pec}.
-This paper presents an analytical model and simulations that use realistic channel realizations and the automated rate fallback (ARF) mechanism for the selection of the modulation coding scheme (MCS).
-An exponentially packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial goodput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
+This paper presents an analytical model and simulations that use realistic channel realizations and the automated rate fallback mechanism for the selection of the modulation coding scheme.
+An exponential packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
 
 
 \section{Conclusion} \label{sec:conclusion}
