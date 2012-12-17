@@ -388,7 +388,25 @@
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
-
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 %
@@ -480,7 +498,7 @@ This deterministic backoff is a constant and is the same for all the stations.
 
 The first part of the paper is of tutorial nature, offering an introduction to the basic operation of CSMA/ECA and describing the benefits of this approach in a qualitative manner.
 The second part of the paper surveys the main contributions to this research field, briefly summarizing the main challenges and potential solutions, and also introducing variants and derivatives of CSMA/ECA.
-Finally, simulation results confirm the advantages of the proposed approach.
+Finally, \DIFdelbegin \DIFdel{results are included that }\DIFdelend \DIFaddbegin \DIFadd{simulation results }\DIFaddend confirm the advantages of the proposed approach.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -528,10 +546,10 @@ Finally, simulation results confirm the advantages of the proposed approach.
 % 
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{he} distributed sharing of a medium by multiple stations is a classic communications problem. 
+\IEEEPARstart{T}{he} \DIFaddbegin \DIFadd{distributed }\DIFaddend sharing of a medium by multiple stations is a classic communications problem. 
 The AlohaNet network \cite{abramson2009asw} pioneered the use of random protocols as media access control (MAC) protocols.
 This network connected several wireless stations in different islands of the Hawaiian archipelago.
-The MAC protocol that was used there is known as the Aloha protocol and is very simple.
+The MAC protocol that was used there is known as the Aloha protocol and \DIFdelbegin \DIFdel{it }\DIFdelend is very simple.
 A wireless station transmits when it has a packet to be transmitted. 
 If the transmission fails, the transmission is reattempted after a random backoff time.
 %In the Aloha protocol, a station transmits as soon as it receives a packet from the upper layers of the protocol stack.
@@ -542,7 +560,7 @@ If the transmission fails, the transmission is reattempted after a random backof
 
 A particularity of random access protocols is the possibility of collisions.
 A collision occurs when multiple stations access the medium simultaneously and their transmissions cannot be correctly decoded.
-These collisions can be resolved by means of retransmissions, but they increase the delay and reduce the maximum throughput of the network.
+These collisions can be resolved by means of \DIFdelbegin \DIFdel{retransmission}\DIFdelend \DIFaddbegin \DIFadd{retransmissions}\DIFaddend , but they increase the delay and reduce the maximum throughput of the network.
 
 Despite collisions being detrimental for the network performance, Aloha is still an interesting option for channel access because it exhibits some key properties.
 The first one is its distributed nature, since Aloha does not require any central entity to operate.
@@ -553,13 +571,13 @@ The combination of these properties was the fundamental reason for the success o
 %In this paper, we will cover random (and semi-random) multiple access protocols that are faithful to the simplicity, low overhead and distributed nature of the early Aloha protocol.
 
 
-The original (or classic) Aloha protocol suffered from some inefficiencies when it had to deal with moderate to high traffic loads.
+The original (or classic) Aloha protocol suffered from some inefficiencies when it had to deal with moderate \DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{to }\DIFaddend high traffic loads.
 For this reason, the original protocol was followed by other derivatives that introduced some refinements or adjustments for a particular network or traffic pattern.
 Two of these derivatives are Slotted Aloha and Reservation Aloha.
 
 The Slotted Aloha protocol divides the time into fixed length slots and the stations can transmit only at the beginning of those slots.
-In doing so, it decreases the chances of collisions and, under the assumption of fixed packet size, it doubles the throughput of the original Aloha.
-Reservation Aloha \cite{crowther1973sbc} extends Slotted Aloha with a reservation mechanism.
+\DIFaddbegin \DIFadd{In doing so, it decreases the chances of collisions and, under the assumption of fixed packet size, it doubles the throughput of the original Aloha.
+}\DIFaddend Reservation Aloha \cite{crowther1973sbc} extends Slotted Aloha with a reservation mechanism.
 In  Reservation Aloha, a number of consecutive  time slots is grouped in a frame.
 All frames contain the same number of slots and can be used for reservation purposes.
 As an example, when a station successfully transmits in the first slot of a frame, it implicitly makes a reservation on the first slot of the following frame.
@@ -568,16 +586,16 @@ In Reservation Aloha, the different nodes implicitly agree on a collision-free s
 However, Reservation Aloha also introduces some complexities, such as choosing the right frame size or handling the situations in which there are more stations than available slots in a frame.
 Both Slotted Aloha and Reservation Aloha use fixed size slots.
 
-The original Aloha network was designed for inter-island communication.
+\DIFaddbegin \DIFadd{The original Aloha network was designed for inter-island communication.
 The Slotted Aloha and the Reservation Aloha protocols were used in satellite communications.
 WLANs represent a different scenario because the distances are much shorter.
-In those networks where the propagation times are short compared to the duration of the transmission of a packet and all the stations can hear each other's transmissions, empty slots can be much shorter than busy slots.
+}\DIFaddend In those networks where the propagation times are short compared to the duration of the transmission of a packet and all the stations can hear each other's transmissions, empty slots can be much shorter than busy slots.
 The fact that empty slots are shorter increases the network performance, since the channel is idle for a smaller fraction of time and therefore there is more time for successful transmissions.
 It is possible to shorten empty slots because the stations can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
 This technique is called carrier sense multiple access (CSMA) and  it is used in wireless local area networks (WLANs) that implement the IEEE 802.11 standard.
-IEEE 802.11 WLANs are popularly known by their certification name, WiFi, and are prevalent in the marketplace.
+IEEE 802.11 WLANs are popularly known by \DIFdelbegin \DIFdel{its }\DIFdelend \DIFaddbegin \DIFadd{their }\DIFaddend certification name, WiFi, and are prevalent in the marketplace.
 It is not the goal of this paper to delve into the details of the standard, but we will use it as a reference CSMA implementation.
-We will also constrain our discussion to those scenarios in which CSMA is applicable: WLANs in which the devices are within one another's transmission range.
+We will also constrain our discussion to those scenarios in which CSMA is applicable: WLANs in which the devices are \DIFdelbegin \DIFdel{close to each other and can hear each other's transmissions}\DIFdelend \DIFaddbegin \DIFadd{within one another's transmission range}\DIFaddend .
 
 Recently, different research initiatives have suggested to combine the advantages of Reservation Aloha networks and CSMA networks (e.g., \cite{he2009srb,barcelo2010fcc,fang2011dlm,barcelo2011tcf,martorell2012pec}). 
 The goal is to distributively construct a collision-free schedule that repeats periodically.
