@@ -816,8 +816,21 @@ This station uses a deterministic backoff and then it suffers an unsuccessful  t
 Despite the collision, this station sticks to using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
 Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11, suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
 
-With the use of stickiness, the constructed schedule is much more robust, as deterministic stations will not move back to random behaviour after a single unsuccessful transmission.
-This unsuccessful transmission can be caused either by a random station or a channel error.
+%With the use of stickiness, the constructed schedule is much more robust, as deterministic stations will not move back to random behaviour after a single unsuccessful transmission.
+%This unsuccessful transmission can be caused either by a random station or a channel error.
+
+The extra stickiness \cite{barcelo2011tcf} offers three advantages.
+First, it accelerates the convergence to collision free operation.
+As an example, it can be observed that Fig. \ref{fig:csma_e2ca} converge faster than \ref{fig:csma_eca}.
+Second, it prevents cascading or chain-reaction effects in which the entry of single user completely breaks a collision-free schedule.
+And third, it makes the schedule robust to channel errors.
+
+Under the assumption of ideal clocks, increasing the stickiness increases the robustness.
+In fact, it could be possible to use a deterministic backoff forever after a single successful transmission.
+The problem is that real clocks suffer clock drifts \cite{gong2012asd} and, as a result, two stations that have successfully transmitted in consecutive slots may end up colliding in the next transmission slot.
+This event is not likely, but it is possible.
+If it happens, then the stickiness is an obstacle to recover normal operation.
+The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift.
 
 \subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
