@@ -845,10 +845,10 @@ An exponential packet length distribution is considered and the curves that comp
 
 \section{Conclusion} \label{sec:conclusion}
 In this paper we have presented a tutorial description of CSMA/ECA, a wireless MAC protocol in which the participating devices construct a collision-free schedule.
-An interesting property is that this protocol neither requires additional processing costs nor message interchange.
-All that is needed, is that the stations use a deterministic backoff after successful transmissions.
+This protocol requires neither additional processing costs nor message interchange.
+All that it needs is for the stations to use a deterministic backoff after successful transmissions.
 
-By doing so, it is guaranteed that two stations that successfully transmitted in their last transmission attempt will not collide among them in their next transmission attempt.
+By doing so, it is guaranteed that two stations that have successfully transmitted in their last transmission attempt will not collide with each other their next transmission attempt.
 Furthermore, in ideal conditions, the system will reach a steady-state in which all the stations transmit in a round-robin fashion in a collision-free schedule.
 
 In the second part of the paper we have reviewed different contributions that either assess the performance of the system in non-ideal conditions or suggest improvements to deal with the non-idealities.

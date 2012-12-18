@@ -605,9 +605,11 @@ The fact that the participating stations transmit in a round-robin fashion offer
 
 The motivation of this paper is to offer an introduction to this new family of protocols and provide an overview of recent work in this area.
 We will describe CSMA/ECA (CSMA with enhanced collision avoidance) as an example of a contention protocol that uses a deterministic backoff after successful transmissions to reduce the number of collisions.
-Then we will review different contributions in this research field to offer an idea of which are the research challenges, the performance gains and the scenarios of interest and applicability.
+Then we will review different contributions in this research field to \DIFdelbegin \DIFdel{offer an idea of }\DIFdelend \DIFaddbegin \DIFadd{discuss  }\DIFaddend which are the research challenges, the performance gains and the scenarios of interest and applicability.
+\DIFaddbegin \DIFadd{We will note that the underlying principles behind our protocol have applicability to other areas of wireless networking.
+}\DIFaddend 
 
-Some of the provided references point out that the general framework that that we use in our description of CSMA/ECA has applicability to other problems in the networking and communications field, such as network coding and channel assignment.
+\DIFaddbegin \DIFadd{As pointed }\DIFaddend Some of the provided references point out that the general framework that \DIFdelbegin \DIFdel{that }\DIFdelend we use in our description of CSMA/ECA has applicability to other problems in the networking and communications field, such as network coding and channel assignment.
 
 The remainder of the paper is organized as follows.
 The next section provides a tutorial on CSMA/ECA.
@@ -627,22 +629,30 @@ The paper finishes with some concluding remarks in Section \ref{sec:conclusion}.
 \label{fig:ca_vs_eca}
 \end{figure*}
 
-Most of currently deployed WLANs are compliant with the IEEE 802.11 standard and rely on CSMA with collision avoidance (CSMA/CA) to share the channel time.
+Most of \DIFaddbegin \DIFadd{the }\DIFaddend currently deployed WLANs are compliant with the IEEE 802.11 standard and rely on CSMA with collision avoidance (CSMA/CA) to share the channel time.
 Thanks to the carrier sense capabilities of the CSMA stations, channel time can be divided in variable length slots.
-%The stations take advantage of their carrier sense capabilities to divide channel time into variable length slots.
+%DIF < The stations take advantage of their carrier sense capabilities to divide channel time into variable length slots.
 We classify the slots as either being empty, if no station transmits, or busy, if one or more stations transmit.
 Among busy slots, we differentiate between successful slots, when there is a single transmission, and collision slots, when multiple stations simultaneously transmit.
 Empty slots are relatively short and of constant duration, which is specified by the standard.
 Contrastingly, busy slots are of variable length. 
-Since the stations can use carrier sense to detect the end of a transmission, it is possible to synchronize the slots to the end of that variable length transmission.
+Since the stations can use carrier \DIFdelbegin \DIFdel{sense }\DIFdelend \DIFaddbegin \DIFadd{sensing }\DIFaddend to detect the end of a transmission, it is possible to synchronize the \DIFdelbegin \DIFdel{slots }\DIFdelend \DIFaddbegin \DIFadd{nodes }\DIFaddend to the end of that variable length transmission.
 The fact that the empty slots can be orders of magnitude shorter than the busy slots represents a performance gain over those approaches in which the slot size is fixed and constant.
 
-In wired networks it is possible to use CSMA with collision detection (CSMA/CD) to keep the collision slots very short.
-Contrastingly, wireless devices do not have the possibility to detect a collision while they are transmitting and, for this reason, the length of a collision slot is approximately equal to the length of the longest of the different packet transmissions involved in the collision.
+In wired networks\DIFaddbegin \DIFadd{, }\DIFaddend it is possible \DIFdelbegin \DIFdel{to use }\DIFdelend \DIFaddbegin \DIFadd{for the nodes involved in a collision to detect the collision while it is taking place and immediately stop transmitting.
+This technique is called }\DIFaddend CSMA with collision detection (CSMA/CD) \DIFdelbegin \DIFdel{to keep the }\DIFdelend \DIFaddbegin \DIFadd{and keep the duration of }\DIFaddend collision slots very short.
+\DIFaddbegin 
 
-The collision avoidance mechanism of CSMA/CA requires the stations to precede transmissions by a random backoff.
+\DIFaddend Contrastingly, wireless devices do not have the possibility to detect a collision while they are transmitting\DIFdelbegin \DIFdel{and, for }\DIFdelend \DIFaddbegin \DIFadd{.
+In fact, wireless stations can only learn about the success (or failure) of a transmission be means of feedback (or lack thereof) from the receiver.
+For }\DIFaddend this reason, the length of a collision slot is approximately equal to the length of the longest of the different packet transmissions involved in the collision.
+
+\DIFdelbegin \DIFdel{The collision avoidance mechanism of }\DIFdelend %DIF > The collision avoidance mechanism of CSMA/CA requires the stations to precede transmissions by a random backoff.
+%DIF > There is an exception to this rule: a station that joins the contention and senses the channel idle for an amount of time specified in the standard is allowed to immediately transmit.
+%DIF > Nevertheless, we can ignore this exception in our initial discussion and, for the sake of simplicity, assume that the stations always backoff for a random number of slots before transmitting.
+\DIFaddbegin \DIFadd{To reduce the likelihood of collisions in }\DIFaddend CSMA/CA\DIFdelbegin \DIFdel{requires the stations to precede transmissions by a random backoff.
 There is an exception to this rule: a station that joins the contention and senses the channel idle for an amount of time specified in the standard is allowed to immediately transmit.
-Nevertheless, we can ignore this exception in our initial discussion and, for the sake of simplicity, assume that the stations always backoff for a random number of slots before transmitting.
+Nevertheless, we can ignore this exception in our initial discussion and , for the sake of simplicity, assume that the stations always backoff for a random number of slots before transmitting}\DIFdelend \DIFaddbegin \DIFadd{, channel is divided into slots and transmissions are synchronized to slot borders and preceded by a random backoff}\DIFaddend .
 In particular, the stations randomly choose a backoff value and set a backoff counter to that value.
 Then, the stations decrement the backoff values by one in every slot.
 The transmission occurs when the backoff counter reaches zero.
@@ -651,13 +661,13 @@ The transmission occurs when the backoff counter reaches zero.
 CSMA/ECA is simply a subtle variant of the protocol described above.
 The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic backoff after successful transmissions.
 This deterministic backoff is constant and is the same for all the stations.
-As a result, two stations that successfully transmit in two different slots will not collide amongst themselves in their next transmission attempt.
+As a result, two stations that successfully transmit in two different slots will not collide \DIFdelbegin \DIFdel{amongst themselves }\DIFdelend \DIFaddbegin \DIFadd{with each other }\DIFaddend in their next transmission attempt.
 
 %This is the key idea in CSMA/ECA and it is illustrated by the following example.
 Imagine that two stations STA 1 and STA 2 successfully transmit in two different slots (for our example we will assume that these are slot $X$ and slot $Y$, respectively),  and then they both backoff for the same number of slots $V$.
 Their next transmission attempt occurs at slot $X+V$ and $Y+V$, which are different (since $X$ and $Y$ are different).
 
-The behaviour of CSMA/CA and CSMA/ECA is depicted in Fig.~\ref{fig:ca_vs_eca}.
+The behaviour of CSMA/CA and CSMA/ECA \DIFaddbegin \DIFadd{for a network of two nodes }\DIFaddend is depicted in Fig.~\ref{fig:ca_vs_eca}.
 The upper subfigure Fig. \ref{fig:csma_ca} represents two stations competing for the channel using CSMA/CA.
 The channel time is slotted and some slots are empty while others are busy with successes or collisions.
 If realistic channels are considered, it is also possible that a busy slot contains a transmission that cannot be decoded due to unfavorable channel conditions.
@@ -667,7 +677,7 @@ The figure is not to scale for the ease of representation.
 In reality, the busy slots are much longer than the empty ones, 
 The figure also shows the backoff value of each of the two competing stations in each slot, and the tiny arrows indicate whether the backoff is randomly or deterministically selected.
 
-It can be observed that the backoff value is decremented by one in every slot and that a station transmits when its backoff counter reaches a value equal to zero.
+It can be observed that the backoff value is decremented by one in every slot and that a station transmits when its backoff counter reaches \DIFdelbegin \DIFdel{a value equal to }\DIFdelend zero.
 After a transmission, each CSMA/CA station randomly chooses a new backoff value.
 
 In the present example we assume that, after completing a transmission, each station has another packet to transmit.
@@ -686,7 +696,7 @@ It is useful to compare the behaviour of CSMA/CA in Fig. \ref{fig:csma_ca} to th
 The initial behaviour is exactly the same for the two protocols: a collision occurs and a random backoff is selected.
 However, after the first successful transmission of STA 1 we can observe that the CSMA/ECA station deterministically chooses its backoff value.
 The same occurs after the first successful transmission of STA 2.
-The fact that the stations have successfully transmitted in different slots and use the same deterministic backoff value guarantees that these two stations will not collide in their next transmission attempt.
+The fact that the stations have successfully transmitted in different slots and use the same deterministic backoff value guarantees that these two stations will not collide \DIFaddbegin \DIFadd{with each other }\DIFaddend in their next transmission attempt.
 %In fact, by choosing the same deterministic backoff, these two stations are in order to prevent a collision in the future.
 From this point on, the behaviour of the system is collision-free, deterministic, cyclic and fair.
 The cycle length is indicated in the figure, and it is easy to observe that the behaviour of the system in the second cycle is exactly the same as in the first cycle.
@@ -694,8 +704,8 @@ The cycle length is indicated in the figure, and it is easy to observe that the 
 \subsection{Generalization to a larger number of contenders}
 The general rule is that collision free operation is reached after all the contending stations consecutively successfully transmit.
 To better understand the construction of the collision-free schedule, it is useful to look at an example with more than two contending stations.
-In order to depict the contention for the channel when the number of contenders is high, we will need a more compact representation such as the used in Fig.~\ref{fig:ca_vs_eca_compact}.
-For convenience, we draw all the slots as being of equal length, even though in reality their length can differ by orders of magnitude.
+In order to depict the contention for the channel when the number of contenders is high, we will need a more compact representation such as the \DIFaddbegin \DIFadd{one }\DIFaddend used in Fig.~\ref{fig:ca_vs_eca_compact}.
+For convenience, we draw all the slots \DIFdelbegin \DIFdel{as being of }\DIFdelend \DIFaddbegin \DIFadd{with }\DIFaddend equal length, even though in reality their length can differ by orders of magnitude.
 Each slot is numbered and the transmissions of the stations are represented as disks in the slots.
 There are six different stations competing for the channel and the hatching pattern of each disk identifies which is the transmitting station.
 
@@ -719,7 +729,7 @@ In this particular example, the colliding stations in slot 7 retransmit in slot 
 In CSMA/ECA, when all the stations consecutively successfully transmit, they all stick to the same column.
 At this point, the collision-free schedule has already been constructed as we can observe in the last two rows of Fig. \ref{fig:csma_eca_compact}.
 
-The construction of the collision-free schedule results in important performance gains in terms of throughput as we will see in the next section.
+The construction of the collision-free schedule results in \DIFdelbegin \DIFdel{important }\DIFdelend \DIFaddbegin \DIFadd{significant }\DIFaddend performance gains in terms of throughput\DIFaddbegin \DIFadd{, }\DIFaddend as we will see in the next section\DIFaddbegin \DIFadd{, because the deterministic stations may only collide with random stations and not with one another}\DIFaddend .
 CSMA/ECA delivers a performance advantage even before the collision-free schedule is completely constructed.
 This means that CSMA/ECA also outperforms CSMA/CA in highly dynamic scenarios in which the stations join and leave the contention.
 In the extreme case in which the stations join the contention to transmit a single packet and then they leave, the performance of CSMA/ECA falls back to that of CSMA/CA.
@@ -727,38 +737,38 @@ In the extreme case in which the stations join the contention to transmit a sing
 A key aspect in the proposed protocol is that of the schedule length, which is equivalent to the deterministic backoff used after successful transmissions.
 If the schedule length is excessively large compared to the number of contenders, the large number of empty slots will slightly penalize the performance.
 On the other hand, if the schedule is too short, it will not be possible to accommodate the collision-free operation of all the participants.
-As it is pointed out in \cite{fang2011dlm}, it is better to have a schedule that is larger than the number of contenders than having a one that it is shorter.
+As it is pointed out in \cite{fang2011dlm}, it is better to have a schedule that is larger than the number of contenders than having \DIFdelbegin \DIFdel{a one that it }\DIFdelend \DIFaddbegin \DIFadd{one that }\DIFaddend is shorter.
 The reason is that empty slots are much shorter than collision slots.
 We discuss in the next section the possibility to adapt the schedule length in a distributed way.
 
 It is notable that the collision reduction and the performance improvement is obtained with no extra cost in terms of complexity, signaling or overhead.
 %It is notable that the collisions are prevented without requiring any additional signaling or processing costs by part of the station.
-Another advantage of CSMA/ECA is the close similarity to the protocol that is used in currently deployed devices, CSMA/CA.
-This similarity should pave the way for the widespread implementation of CSMA/ECA in next-generation devices.
+Another advantage of CSMA/ECA is \DIFdelbegin \DIFdel{the }\DIFdelend \DIFaddbegin \DIFadd{its }\DIFaddend close similarity to \DIFaddbegin \DIFadd{CSMA/CA }\DIFaddend the protocol that is used in \DIFaddbegin \DIFadd{most of the }\DIFaddend currently deployed devices\DIFdelbegin \DIFdel{, CSMA/CA}\DIFdelend .
+This similarity \DIFdelbegin \DIFdel{should pave the way }\DIFdelend \DIFaddbegin \DIFadd{facilitates }\DIFaddend for the widespread implementation of CSMA/ECA in next-generation devices.
 
-This section has covered the basic idea that enables the construction of a collision-free schedule in a highly idealized and simplified scenario. If CSMA/ECA is to be considered as a replacement of CSMA/CA, wider and deeper analysis are needed. The following section offers an overview of some contributions in this particular research area.
+This section has covered the basic idea that enables the construction of a collision-free schedule in a highly idealized and simplified scenario. If CSMA/ECA is to be considered as a replacement of CSMA/CA, wider and deeper analysis \DIFdelbegin \DIFdel{are }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend needed. The following section offers an overview of some contributions in this particular research area.
 
-\section{Mathematical framework, performance evaluation and refinements}
+\section{Mathematical framework, performance evaluation\DIFaddbegin \DIFadd{, }\DIFaddend and refinements}
 \label{sec:survey}
 %It is not the intention of this section to provide an exhaustive survey of all the contributions that deal with the construction of a collision-free schedule.
-In this section we will comment on a small subset of contributions to offer an overview of some of the problems and enhancements of the basic idea that we have described in the previous section. 
+In this section we will \DIFdelbegin \DIFdel{comment on }\DIFdelend \DIFaddbegin \DIFadd{summarize }\DIFaddend a small subset of contributions to offer an overview of some of the problems and \DIFaddbegin \DIFadd{possible }\DIFaddend enhancements of the basic idea that we have described in the previous section. 
 Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
-Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, it has been recently shown that the underlying mathematical framework is applicable to disparate resource allocation problems in the field of networking, such as channel selection for channel spatial reuse and network coding \cite{duffy2011dcs}.
+Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, \DIFdelbegin \DIFdel{it has been recently shown that }\DIFdelend the underlying mathematical framework is applicable to disparate resource allocation problems in the field of networking, such as channel selection for channel spatial reuse and network coding \cite{duffy2011dcs}.
 The construction of a collision-free schedule in CSMA/ECA is just an instance of a Constraint Satisfaction Problem (CSP) that the participating entities need to solve without explicit communication.
-It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver (which is a generalization of the protocol that we have introduced in the previous section) guarantees that a solution will be found in finite time, if the solution exists.
+It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver (which is a generalization of the protocol that we have introduced in the previous section) guarantees that a solution will be found in finite time, if \DIFdelbegin \DIFdel{the }\DIFdelend \DIFaddbegin \DIFadd{a }\DIFaddend solution exists.
 Furthermore, its performance is competitive with some of the well-known centralized CSP solvers.
 
 \subsection{Refinements}
 
-Some improvements on top of the basic idea described in Sec.~\ref{sec:eca} are presented in \cite{fang2011dlm}. 
-First, it suggests a distributed approach to adjust the schedule length to accommodate a large number of contenders.
+Some improvements on \DIFdelbegin \DIFdel{top of }\DIFdelend the basic idea described in Sec.~\ref{sec:eca} are presented in \cite{fang2011dlm}. 
+First, it suggests a distributed approach \DIFdelbegin \DIFdel{to adjust }\DIFdelend \DIFaddbegin \DIFadd{for adjusting }\DIFaddend the schedule length to accommodate a large number of contenders.
 And second, it introduces the concept of stickiness, whereby the stations stick to a deterministic backoff even after a transmission failure, for increased schedule robustness. 
 %We will take a closer look into these two contributions.
 
 Notice that, if the protocol is used as described in the previous section, there is a maximum number of stations that can be accommodated in a collision-free fashion.
-In other words, if there were more stations than columns in Fig. \ref{fig:csma_eca_compact}, it would not be possible to assign the stations to columns in such a way that there was a single station in each column.
+In other words, if there were more stations than columns in Fig. \ref{fig:csma_eca_compact}, it would not be possible to assign the stations to columns in such a way that there \DIFdelbegin \DIFdel{was }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend a single station in each column.
 This is the counting argument that is often referred to as the pigeonhole principle.
 %If there are more pigeons than pigeonholes, then there is at least one pigeonhole with two pigeons.
 
@@ -776,16 +786,19 @@ A station that perceives a high collision probability doubles the deterministic 
 \end{figure*}
 
 The beautiful aspect of this approach is that the station that doubles its deterministic backoff also doubles the number of packets that are transmitted every time that it accesses the medium.
-Using this trick, the number of available slots increases.
-Remarkably, in the long term, all the stations transmit the same number of packets, independently of their schedule length.
-This property makes it possible that different stations independently adjust their deterministic backoff value while fairness is preserved.
+Using this trick, the number of available slots increases \DIFdelbegin \DIFdel{.
+Remarkably, in }\DIFdelend \DIFaddbegin \DIFadd{without any reduction in throughput.
+In }\DIFaddend the long term, all the stations transmit the same number of packets, independently of their schedule length.
+This property makes it possible \DIFdelbegin \DIFdel{that different stations }\DIFdelend \DIFaddbegin \DIFadd{for different stations to }\DIFaddend independently adjust their deterministic backoff value while \DIFdelbegin \DIFdel{fairness is preserved}\DIFdelend \DIFaddbegin \DIFadd{preserving fairness}\DIFaddend .
 
-This approach can be better understood by means of an example.
-Consider Fig. \ref{fig:csma_eca_different_backoff} in which three stations have reached a collision-free schedule.
-Notice that the schedule length of the bottom station is twice as long as the schedule length of the other two stations.
-Nevertheless, all the stations fairly share the channel, since the stations with short schedules transmit a single packet and the station with the long schedule transmits two packets when it is its turn.
+\DIFdelbegin \DIFdel{This approach can be better understood by means of an example.
+Consider }\DIFdelend \DIFaddbegin \DIFadd{As an example, consider the 3-node network shown in }\DIFaddend Fig. \ref{fig:csma_eca_different_backoff}\DIFdelbegin \DIFdel{in which }\DIFdelend \DIFaddbegin \DIFadd{, where all three }\DIFaddend three stations have reached a collision-free schedule.
+Notice that the schedule length of \DIFdelbegin \DIFdel{the bottom station }\DIFdelend \DIFaddbegin \DIFadd{STA 3 }\DIFaddend is twice as long as \DIFdelbegin \DIFdel{the schedule length }\DIFdelend \DIFaddbegin \DIFadd{that }\DIFaddend of the other two stations.
+Nevertheless, \DIFaddbegin \DIFadd{in terms of fairness, }\DIFaddend all the stations fairly share the channel\DIFdelbegin \DIFdel{, since the }\DIFdelend \DIFaddbegin \DIFadd{.
+The }\DIFaddend stations with short schedules transmit a single packet and the station with the long schedule transmits two packets when it is its turn.
 Transmitting more than one packet when accessing the channel is possible and the latest revision of the IEEE 802.11 standard includes the necessary mechanisms for transmitting two or more packets back-to-back (packet aggregation).
-At the end of the large cycle of 32 slots, all the stations have transmitted two packets.
+\DIFdelbegin \DIFdel{At the end of the large cycle of 32 slots, all the stations have transmitted two packets.
+}\DIFdelend 
 
 %The idea of stickiness, in the sense that a station is likely to keep using a deterministic backoff (even after a transmission failure) if it has been using a deterministic backoff for a few times in a row, provides the protocol with some extra robustness in the case of a channel error or the entry of a new contender. 
 %Notice that either one of these two events, can force a station to switch from a deterministic backoff to a random backoff.
@@ -810,32 +823,36 @@ At the end of the large cycle of 32 slots, all the stations have transmitted two
 
 If CSMA/ECA is used as described in Sect.~\ref{sec:eca}, the entry of a new contender or a single channel error can disrupt collision-free operation.
 To address this problem, stickiness was introduced in \cite{fang2011dlm} and later discussed in \cite{barcelo2011tcf} in a protocol called CSMA/E2CA.
-In CSMA/E2CA, a station sticks to the use of a deterministic backoff for two consecutive times after each successful transmission.
-In other words, a station that is using a deterministic backoff will only switch to a random behaviour if it suffers two contiguous unsuccessful transmissions.
+In CSMA/E2CA, a station \DIFdelbegin \DIFdel{sticks to the use of a deterministic backoff for two consecutive times after each successful transmission.
+In other words, a station }\DIFdelend that is using a deterministic backoff will only switch to a random behaviour if it suffers two \DIFdelbegin \DIFdel{contiguous }\DIFdelend \DIFaddbegin \DIFadd{consecutive }\DIFaddend unsuccessful transmissions.
 
 The operation of CSMA/E2CA is illustrated in Fig. \ref{fig:csma_e2ca}.
 In this figure, there is a station that successfully transmits in slot~11.
-This station uses a deterministic backoff (i.e., sticks to the same column in this particular graphical representation) and then it suffers a collision in its next transmission attempt in slot 27.
-Despite the collision, this station keeps using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
-As a result, the station sticks to the same column avoiding collisions with other stations that have successfully transmitted.
-Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11, suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
+This station uses a deterministic backoff \DIFdelbegin \DIFdel{(i.e., sticks to the same column in this particular graphical representation) }\DIFdelend and then it suffers \DIFdelbegin \DIFdel{a collision }\DIFdelend \DIFaddbegin \DIFadd{an unsuccessful  transmission }\DIFaddend in its next transmission attempt in slot 27.
+Despite the collision, this station \DIFdelbegin \DIFdel{keeps }\DIFdelend \DIFaddbegin \DIFadd{sticks to }\DIFaddend using a deterministic backoff because the CSMA/E2CA protocol states that a deterministic backoff is used for two consecutive times after a successful transmission.
+\DIFdelbegin \DIFdel{As a result, the station sticks to the same column avoiding collisions with other stations that have successfully transmitted.
+}\DIFdelend Compare this behaviour to the behaviour observed in Fig. \ref{fig:csma_eca_compact} where the station that successfully transmits in slot 11, suffers a collision in slot 27 and then causes another collision after using a random backoff and transmitting in slot 45.
 
-\subsection{Performance of CSMA/ECA and CSMA/E2CA}
+\DIFaddbegin \DIFadd{With the use of stickiness, the constructed schedule is much more robust, as deterministic stations will not move back to random behaviour after a single unsuccessful transmission.
+This unsuccessful transmission can be caused either by a random station or a channel error.
+}
+
+\DIFaddend \subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
 A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
-One the characteristics of the construction of the collision-free schedule is that it requires some time.
+One \DIFdelbegin \DIFdel{the characteristics of the construction of }\DIFdelend \DIFaddbegin \DIFadd{of }\DIFaddend the \DIFaddbegin \DIFadd{characteristics of CSMA/ECA is that reaching a }\DIFaddend collision-free \DIFdelbegin \DIFdel{schedule is that it requires some time}\DIFdelend \DIFaddbegin \DIFadd{schedule may require several transmission rounds}\DIFaddend .
 The network goes through a transient state in which some of the stations use a deterministic backoff while the remaining stations use a random backoff.
 When the collision-free schedule is eventually reached, the system moves to a deterministic steady state.
-An analytical model of the system is presented which can be used to make predictions about the length of transient state.
+An analytical model of the system is presented \DIFaddbegin \cite{he2009srb} \DIFaddend which can be used to make predictions about the length of \DIFaddbegin \DIFadd{the }\DIFaddend transient state.
 
-The paper also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors and channel errors.
-Different performance metrics such as throughput, delay and collision probability are evaluated and both saturated and non-saturated traffic is considered.
-The authors conclude that the variant of the protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
-Another interesting remark of that paper is the fact that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
+The paper also presents a comprehensive simulation study which includes realistic ingredients such as traffic differentiation, carrier sense errors\DIFaddbegin \DIFadd{, }\DIFaddend and channel errors.
+Different performance metrics such as throughput, delay\DIFaddbegin \DIFadd{, }\DIFaddend and collision probability are evaluated\DIFaddbegin \DIFadd{, }\DIFaddend and both saturated and non-saturated traffic is considered.
+The authors conclude that \DIFdelbegin \DIFdel{the variant of the }\DIFdelend \DIFaddbegin \DIFadd{a }\DIFaddend protocol that uses a deterministic backoff after successful transmissions always outperforms the purely random protocol.
+\DIFdelbegin \DIFdel{Another interesting remark of that paper is the fact }\DIFdelend \DIFaddbegin \DIFadd{Interestingly, the authors remark }\DIFaddend that the implementation of the protocol in the well-known simulator NS-2 required the change of only three lines of code.
 This gives an idea of how similar the proposed protocol is to the legacy one,  and how easy it would be to include the proposed protocol in new devices.
 
-Many performance aspects are covered in \cite{fang2011dlm}.
-That article offers a comparative among different learning MAC protocols, and studies the speed of convergence, performance in unsaturated scenarios and in the presence of errors and legacy stations.
+Many performance aspects are covered in \cite{fang2011dlm}\DIFdelbegin \DIFdel{.
+That article offers a comparative }\DIFdelend \DIFaddbegin \DIFadd{, which offers a comparison }\DIFaddend among different learning MAC protocols, and studies the speed of convergence \DIFdelbegin \DIFdel{, }\DIFdelend \DIFaddbegin \DIFadd{and }\DIFaddend performance in unsaturated scenarios and in the presence of errors and legacy stations.
 
 Fairness of the new protocol with regard to legacy stations is addressed in \cite{barcelo2010fcc}.
 The results show that both protocols are interoperable and can fairly coexist in the same network.
@@ -853,16 +870,17 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 \end{figure}
 
 A detailed performance evaluation of the new protocol is offered in \cite{martorell2012pec}.
-This paper presents an analytical model and simulations that use realistic channel realizations and the automated rate fallback (ARF) mechanism for the selection of the modulation coding scheme (MCS).
-An exponentially packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial goodput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
+This paper presents an analytical model and simulations that use realistic channel realizations and the automated rate fallback \DIFdelbegin \DIFdel{(ARF) }\DIFdelend mechanism for the selection of the modulation coding scheme\DIFdelbegin \DIFdel{(MCS).
+An exponentially }\DIFdelend \DIFaddbegin \DIFadd{.
+An exponential }\DIFaddend packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial \DIFdelbegin \DIFdel{goodput }\DIFdelend \DIFaddbegin \DIFadd{throughput }\DIFaddend improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
 
 
 \section{Conclusion} \label{sec:conclusion}
 In this paper we have presented a tutorial description of CSMA/ECA, a wireless MAC protocol in which the participating devices construct a collision-free schedule.
-An interesting property is that this protocol neither requires additional processing costs nor message interchange.
-All that is needed, is that the stations use a deterministic backoff after successful transmissions.
+\DIFdelbegin \DIFdel{An interesting property is that this protocol neither requires }\DIFdelend \DIFaddbegin \DIFadd{This protocol requires neither }\DIFaddend additional processing costs nor message interchange.
+All that \DIFdelbegin \DIFdel{is needed, is that the stations }\DIFdelend \DIFaddbegin \DIFadd{it needs is for the stations to }\DIFaddend use a deterministic backoff after successful transmissions.
 
-By doing so, it is guaranteed that two stations that successfully transmitted in their last transmission attempt will not collide among them in their next transmission attempt.
+By doing so, it is guaranteed that two stations that \DIFaddbegin \DIFadd{have }\DIFaddend successfully transmitted in their last transmission attempt will not collide \DIFdelbegin \DIFdel{among them in }\DIFdelend \DIFaddbegin \DIFadd{with each other }\DIFaddend their next transmission attempt.
 Furthermore, in ideal conditions, the system will reach a steady-state in which all the stations transmit in a round-robin fashion in a collision-free schedule.
 
 In the second part of the paper we have reviewed different contributions that either assess the performance of the system in non-ideal conditions or suggest improvements to deal with the non-idealities.
