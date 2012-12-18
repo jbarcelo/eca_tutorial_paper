@@ -394,7 +394,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{On the Construction of a Collision-Free Schedule in WLANs}
+\title{On the Distributed Construction of a Collision-Free Schedule in WLANs}
 %
 %
 % author names and IEEE memberships
@@ -474,7 +474,7 @@
 %\boldmath
 In wireless local area networks (WLANs), a media access protocol arbitrates the access to the channel.
 In current IEEE 802.11 WLANs, carrier sense multiple access with collision avoidance (CSMA/CA) is used.
-Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle variant of the well-known CSMA/CA algorithm in which the different stations construct a collision-free schedule.
+Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle variant of the well-known CSMA/CA algorithm in which the number of collisions is initially reduced before the different stations construct a collision-free schedule.
 The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic backoff after successful transmissions.
 This deterministic backoff is a constant and is the same for all the stations.
 
@@ -571,9 +571,9 @@ Both Slotted Aloha and Reservation Aloha use fixed size slots.
 The original Aloha network was designed for inter-island communication.
 The Slotted Aloha and the Reservation Aloha protocols were used in satellite communications.
 WLANs represent a different scenario because the distances are much shorter.
-In those networks where the propagation times are short compared to the duration of the transmission of a packet and all the stations can hear each other's transmissions, empty slots can be much shorter than busy slots.
-The fact that empty slots are shorter increases the network performance, since the channel is idle for a smaller fraction of time and therefore there is more time for successful transmissions.
-It is possible to shorten empty slots because the stations can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
+When where the propagation times are short compared to the duration of the transmission of a packet and all the stations can hear each other's transmissions, empty slots can be made much shorter than busy slots.
+This way the network performance can be improved, since the channel will be idle for a smaller fraction of time and therefore there will be more time for successful transmissions.
+It is possible to shorten the empty slots in this case because when stations are close to each other they can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
 This technique is called carrier sense multiple access (CSMA) and  it is used in wireless local area networks (WLANs) that implement the IEEE 802.11 standard.
 IEEE 802.11 WLANs are popularly known by their certification name, WiFi, and are prevalent in the marketplace.
 It is not the goal of this paper to delve into the details of the standard, but we will use it as a reference CSMA implementation.
@@ -718,17 +718,26 @@ As it is pointed out in \cite{fang2011dlm}, it is better to have a schedule that
 The reason is that empty slots are much shorter than collision slots.
 We discuss in the next section the possibility to adapt the schedule length in a distributed way.
 
-It is notable that the collision reduction and the performance improvement is obtained with no extra cost in terms of complexity, signaling or overhead.
-%It is notable that the collisions are prevented without requiring any additional signaling or processing costs by part of the station.
-Another advantage of CSMA/ECA is its close similarity to CSMA/CA the protocol that is used in most of the currently deployed devices.
-This similarity facilitates for the widespread implementation of CSMA/ECA in next-generation devices.
+%It is notable that the collision reduction and the performance improvement is obtained with no extra cost in terms of complexity, signaling or overhead.
+%Another advantage of CSMA/ECA is its close similarity to CSMA/CA the protocol that is used in most of the currently deployed devices.
+%This similarity facilitates for the widespread implementation of CSMA/ECA in next-generation devices.
+
+Even though there are clear similarities between CSMA/ECA and Reservation Aloha, there are also two marked differences.
+The first one is that in Reservation Aloha the slot size is fixed, while in CSMA/ECA the slot size is variable.
+The second difference is that in Reservation Aloha there is a reservation while in CSMA/ECA there is not.
+A station that successfully transmits can suffer a collision in its next transmission attempt, because there is no reservation in place and therefore a station behaving randomly may choose the same slot that a station that is behaving deterministically.
+
+The lack of reservations in CSMA/ECA makes the protocol very similar to CSMA/CA and allows for the peaceful coexistence of both protocols in the same network.
+The similarity of CSMA/CA and CSMA/ECA is also an advantage as it eases the adaptation of current designs to the new protocol.
+It is remarkable that the performance advantage of CSMA/ECA does not come at a price of additional signaling or extra overheads.
+
 
 This section has covered the basic idea that enables the construction of a collision-free schedule in a highly idealized and simplified scenario. If CSMA/ECA is to be considered as a replacement of CSMA/CA, wider and deeper analysis is needed. The following section offers an overview of some contributions in this particular research area.
 
 \section{Mathematical framework, performance evaluation, and refinements}
 \label{sec:survey}
 %It is not the intention of this section to provide an exhaustive survey of all the contributions that deal with the construction of a collision-free schedule.
-In this section we will summarize a small subset of contributions to offer an overview of some of the problems and possible enhancements of the basic idea that we have described in the previous section. 
+In this section we will summarize a small subset of contributions to offer an overview of some of the problems and possible enhancements of the basic idea described in the previous section. 
 Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
