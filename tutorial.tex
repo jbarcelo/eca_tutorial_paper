@@ -877,16 +877,25 @@ This paper presents an analytical model and simulations that use realistic chann
 An exponential packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
 
 The purpose of ARF is to adapt the transmission rate to the channel conditions.
-The interaction between CSMA/CA and ARF is very problematic.
-ARF lowers the transmission rate after unsuccessful transmissions.
-The original goal of ARF is to use more robust modulations in the 
+In unfavorable channel conditions, ARF uses slower (and more robust) transmission rates.
+The ARF mechanism simply switches to slower transmission rates after unsuccessful transmissions, as it believes that they are an indication of unfavorable channel conditions.
+
+The problem is that, when BA is used, ARF cannot differentiate between channel errors and collisions.
+In any case, it slows down the transmission rate.
+When ARF is combined with CSMA/CA in scenarios with a large number of contenders, the high number of collisions slows down the transmission rate and therefore the performance is doubly penalized: firstly because of the collisions and secondly because of the slower rates.
+
+This problem is apparent in the BA curve in Fig.~\ref{fig:performance}.
+The use of RTS/CTS involves the use of additional handshaking control packets and makes it possible to differentiate between channel errors and collisions.
+Therefore CSMA/CA-RTS/CTS outperforms CSMA/CA-BA when the number of contenders is large.
+The best performance is obtained by CSMA/E2CA-BA as it prevents collisions and does not suffer the overhead of the extra RTS/CTS packets.
+
 
 \section{Conclusion} \label{sec:conclusion}
 In this paper we have presented a tutorial description of CSMA/ECA, a wireless MAC protocol in which the participating devices construct a collision-free schedule.
 This protocol requires neither additional processing costs nor message interchange.
-All that it needs is for the stations to use a deterministic backoff after successful transmissions.
+All it needs is for the stations to use a deterministic backoff after successful transmissions.
 
-By doing so, it is guaranteed that two stations that have successfully transmitted in their last transmission attempt will not collide with each other their next transmission attempt.
+By doing so, it is guaranteed that stations that have successfully transmitted in their last transmission attempt will not collide among them in their next transmission attempt.
 Furthermore, in ideal conditions, the system will reach a steady-state in which all the stations transmit in a round-robin fashion in a collision-free schedule.
 
 In the second part of the paper we have reviewed different contributions that either assess the performance of the system in non-ideal conditions or suggest improvements to deal with the non-idealities.
