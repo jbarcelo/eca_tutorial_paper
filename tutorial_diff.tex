@@ -847,7 +847,7 @@ Compare this behaviour to the behaviour observed in Fig.
 %DIF < With the use of stickiness, the constructed schedule is much more robust, as deterministic stations will not move back to random behaviour after a single unsuccessful transmission.
 %DIF < This unsuccessful transmission can be caused either by a random station or a channel error.
 \DIFdelend \DIFaddbegin \DIFadd{, only one of them needs to choose a random backoff to prevent a new collision of the two stations in their next transmission attempt.
-Consequently, one can imagine a protocol in which stations only use deterministic backoffs after a single successful attempt.
+Consequently, the protocol might be improved if deterministic stations kept using a deterministic backoff after collisions.
 The property of using a deterministic backoff after suffering collisions is called in ``stickyness'' }\cite{fang2011dlm}\DIFadd{.
 }\DIFaddend 
 
@@ -856,7 +856,7 @@ The property of using a deterministic backoff after suffering collisions is call
 First, it accelerates the convergence to collision free operation.
 As an example, it can be observed that CSMA/E2CA in Fig. \ref{fig:csma_e2ca} converges faster than CSMA/ECA in \ref{fig:csma_eca_compact}.
 Second, it prevents cascading or chain-reaction effects in which the entry of single user completely breaks }\DIFdelend \DIFaddbegin \DIFadd{In ideal conditions, this solution has several advantages.
-Firstly, it converges faster to collision-free operation, as a station that successfully transmits once never switch back to the random behaviour.
+Firstly, it converges faster to collision-free operation, as a station that successfully transmits once never switches back to the random behaviour.
 Secondly, once }\DIFaddend a collision-free \DIFdelbegin \DIFdel{schedule.
 And third, it makes the schedule robust to channel errors.
 }\DIFdelend \DIFaddbegin \DIFadd{scheduled is built, it is not possible that a channel error moves the system back to the random behaviour.
@@ -866,20 +866,19 @@ The new entrant will simply use a random behaviour (possibly suffering collision
 
 \DIFdelbegin \DIFdel{Under the assumption of ideal clocks, increasing the stickiness also increases the robustness.
 In this ideal situation, it would make sense to use a deterministic backoff forever after a single successful transmission.
-}\DIFdelend The problem is that real clocks \DIFdelbegin \DIFdel{suffer clock drifts}\DIFdelend \DIFaddbegin \DIFadd{my suffer drifts, that can result in slot drift }\DIFaddend \cite{gong2012asd}\DIFdelbegin \DIFdel{and, as a result, two stations that have successfully transmitted in consecutive slots may end up colliding in the next transmission slot.
+}\DIFdelend The problem is that real clocks \DIFdelbegin \DIFdel{suffer clock drifts}\DIFdelend \DIFaddbegin \DIFadd{may suffer drifts, that can result in slot drift }\DIFaddend \cite{gong2012asd}\DIFdelbegin \DIFdel{and, as a result, two stations that have successfully transmitted in consecutive slots may end up colliding in the next transmission slot.
 This event is not likely, but it is possible.
 If it happens, then the stickiness is an obstacle to recover normal operation.
-The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift.}\DIFdelend \DIFaddbegin \DIFadd{.
+The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift}\DIFdelend \DIFaddbegin \DIFadd{.
 Two stations using a deterministic backoff may collide if one of them miscounts the number of slots.
-This is a very undesirable situations if both stations ``stick'' to the use of a deterministic backoff.
+This is a very undesirable situations if both stations ``stick'' to the use of a deterministic backoff after suffering a collision.
 }
 
-\DIFadd{To attain the advantages of stickiness while preventing the potential pitfall, }\cite{fang2011dlm} \DIFadd{proposed probabilistic stickiness and }\cite{barcelo2011tcf} \DIFadd{proposed finite stickiness in which deterministic stations switch back to random behaviour after a given number of collisions.
+\DIFadd{To attain the advantages of stickiness while preventing the potential pitfall, }\cite{fang2011dlm} \DIFadd{proposed probabilistic stickiness and }\cite{barcelo2011tcf} \DIFadd{proposed finite stickiness, in which deterministic stations switch back to random behaviour after a given number of collisions.
 }
 
 \DIFadd{Fig.~\ref{fig:csma_e2ca} illustrates the operation of the protocol when deterministic stations ``stick'' to a deterministic backoff after suffering a collision.
-It can be observed that in this example, the convergence to collision free operation is faster than in Fig.~\ref{fig:csma_eca_compact}.
-}
+It can be observed that in this example, the convergence to collision free operation is faster than in Fig.~\ref{fig:csma_eca_compact}}\DIFaddend .
 
 %DIF > If CSMA/ECA is used as described in Sect.~\ref{sec:eca}, a single channel error or the entry of new contender can disrupt collision-free operation.
 %DIF > To address this problem, stickiness was introduced in \cite{fang2011dlm} and later discussed in \cite{barcelo2011tcf} in a protocol called CSMA/E2CA.
@@ -903,9 +902,9 @@ It can be observed that in this example, the convergence to collision free opera
 %DIF > This event is not likely, but it is possible.
 %DIF > If it happens, then the stickiness is an obstacle to recover normal operation.
 %DIF > The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift.
-\DIFaddend 
+\DIFaddbegin 
 
-\subsection{Performance of CSMA/ECA and CSMA/E2CA}
+\DIFaddend \subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
 A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
 One of the characteristics of CSMA/ECA is that reaching a collision-free schedule may require several \DIFdelbegin \DIFdel{transmission rounds}\DIFdelend \DIFaddbegin \DIFadd{schedule cycles}\DIFaddend .
@@ -938,9 +937,15 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 
 A detailed performance evaluation of the new protocol is offered in \cite{martorell2012pec}.
 This paper presents an analytical model and simulations that use realistic channel realizations and the automated rate fallback \DIFaddbegin \DIFadd{(ARF) }\DIFaddend mechanism for the selection of the modulation coding scheme.
-An exponential packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the basic access (BA) and the request-to-send/clear-to-send (RTS/CTS) scheme.
+\DIFaddbegin \DIFadd{The paper offers results for the two handshaking mechanisms in IEEE 802.11: Basic Access (BA) and request-to-send/clear-to-send (RTS/CTS).
+BA is simpler as it includes only a transmission and an acknowledgement.
+In RTS/CTS, the transmission and the acknowledgement are preceded by the RTS and CTS signaling frames.
+}
 
-\DIFaddbegin \DIFadd{The purpose of ARF is to adapt the transmission rate to the channel conditions.
+\DIFaddend An exponential packet length distribution is considered and the curves that compare CSMA/CA and CSMA/E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the \DIFdelbegin \DIFdel{basic access (BA ) and the request-to-send}\DIFdelend \DIFaddbegin \DIFadd{BA and RTS}\DIFaddend /\DIFdelbegin \DIFdel{clear-to-send (}\DIFdelend \DIFaddbegin \DIFadd{CTS the scheme.
+}
+
+\DIFadd{The purpose of ARF is to adapt the transmission rate to the channel conditions.
 In unfavorable channel conditions, ARF uses slower (and more robust) transmission rates.
 The ARF mechanism simply switches to slower transmission rates after unsuccessful transmissions, as it believes that they are an indication of unfavorable channel conditions.
 }
@@ -951,13 +956,12 @@ When ARF is combined with CSMA/CA in scenarios with a large number of contenders
 }
 
 \DIFadd{This problem is apparent in the BA curve in Fig.~\ref{fig:performance}.
-The use of RTS/CTS involves the use of additional handshaking control packets and makes it possible to differentiate between channel errors and collisions.
+The use of }\DIFaddend RTS/CTS \DIFdelbegin \DIFdel{) scheme}\DIFdelend \DIFaddbegin \DIFadd{involves additional handshaking control frames and makes it possible to differentiate between channel errors and collisions.
 Therefore CSMA/CA-RTS/CTS outperforms CSMA/CA-BA when the number of contenders is large.
-The best performance is obtained by CSMA/E2CA-BA as it prevents collisions and does not suffer the overhead of the extra RTS/CTS packets.
-}
+The best performance is obtained by CSMA/E2CA-BA as it prevents collisions and does not suffer the overhead of the extra RTS/CTS packets}\DIFaddend .
 
 
-\DIFaddend \section{Conclusion} \label{sec:conclusion}
+\section{Conclusion} \label{sec:conclusion}
 In this paper we have presented a tutorial description of CSMA/ECA, a wireless MAC protocol in which the participating devices construct a collision-free schedule.
 This protocol requires neither additional processing costs nor message interchange.
 All \DIFdelbegin \DIFdel{that }\DIFdelend it needs is for the stations to use a deterministic backoff after successful transmissions.
