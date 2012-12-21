@@ -766,7 +766,7 @@ In this section we will summarize a small subset of contributions to offer an ov
 Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
-Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, the underlying mathematical framework is applicable to disparate resource allocation problems in the field of wireless networking, such as cognitive radio \DIFdelbegin \DIFdel{sensing }\DIFdelend \cite{khan2013aso}, channel selection and network coding \cite{duffy2011dcs}.
+Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, the underlying mathematical framework is applicable to \DIFdelbegin \DIFdel{disparate }\DIFdelend \DIFaddbegin \DIFadd{a variety of }\DIFaddend resource allocation problems in the field of wireless networking, such as cognitive radio \DIFdelbegin \DIFdel{sensing }\DIFdelend \cite{khan2013aso}, channel selection and network coding \cite{duffy2011dcs}.
 The construction of a collision-free schedule in CSMA/ECA is \DIFaddbegin \DIFadd{in fact }\DIFaddend just an instance of a Constraint Satisfaction Problem (CSP) that the participating entities need to solve without explicit communication.
 It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver (which is a generalization of the protocol that we have introduced in the previous section) guarantees that a solution will be found in finite time, if a solution exists.
 Furthermore, its performance is competitive with some of the well-known centralized CSP solvers.
@@ -869,7 +869,7 @@ In this ideal situation, it would make sense to use a deterministic backoff fore
 }\DIFdelend The problem is that real clocks \DIFdelbegin \DIFdel{suffer clock drifts}\DIFdelend \DIFaddbegin \DIFadd{my suffer drifts, that can result in slot drift }\DIFaddend \cite{gong2012asd}\DIFdelbegin \DIFdel{and, as a result, two stations that have successfully transmitted in consecutive slots may end up colliding in the next transmission slot.
 This event is not likely, but it is possible.
 If it happens, then the stickiness is an obstacle to recover normal operation.
-The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift}\DIFdelend \DIFaddbegin \DIFadd{.
+The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift.}\DIFdelend \DIFaddbegin \DIFadd{.
 Two stations using a deterministic backoff may collide if one of them miscounts the number of slots.
 This is a very undesirable situations if both stations ``stick'' to the use of a deterministic backoff.
 }
@@ -878,7 +878,8 @@ This is a very undesirable situations if both stations ``stick'' to the use of a
 }
 
 \DIFadd{Fig.~\ref{fig:csma_e2ca} illustrates the operation of the protocol when deterministic stations ``stick'' to a deterministic backoff after suffering a collision.
-It can be observed that in this example, the convergence to collision free operation is faster than in Fig.~\ref{fig:csma_eca_compact}}\DIFaddend .
+It can be observed that in this example, the convergence to collision free operation is faster than in Fig.~\ref{fig:csma_eca_compact}.
+}
 
 %DIF > If CSMA/ECA is used as described in Sect.~\ref{sec:eca}, a single channel error or the entry of new contender can disrupt collision-free operation.
 %DIF > To address this problem, stickiness was introduced in \cite{fang2011dlm} and later discussed in \cite{barcelo2011tcf} in a protocol called CSMA/E2CA.
@@ -902,9 +903,9 @@ It can be observed that in this example, the convergence to collision free opera
 %DIF > This event is not likely, but it is possible.
 %DIF > If it happens, then the stickiness is an obstacle to recover normal operation.
 %DIF > The choice of two deterministic backoffs after a successful transmission is a compromise value that provides robustness against collisions and channel errors and agile recovery in the case of slot drift.
-\DIFaddbegin 
+\DIFaddend 
 
-\DIFaddend \subsection{Performance of CSMA/ECA and CSMA/E2CA}
+\subsection{Performance of CSMA/ECA and CSMA/E2CA}
 
 A detailed study of the use of a deterministic backoff after successful transmissions is offered in \cite{he2009srb}. 
 One of the characteristics of CSMA/ECA is that reaching a collision-free schedule may require several \DIFdelbegin \DIFdel{transmission rounds}\DIFdelend \DIFaddbegin \DIFadd{schedule cycles}\DIFaddend .
