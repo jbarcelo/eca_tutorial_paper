@@ -735,7 +735,7 @@ This section has covered the basic idea that enables the construction of a colli
 \label{sec:survey}
 %It is not the intention of this section to provide an exhaustive survey of all the contributions that deal with the construction of a collision-free schedule.
 In this section we will summarize a small subset of representative contributions to offer an overview of some of the problems and possible enhancements of the basic idea described in the previous section. 
-Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
+%Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
 Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, the underlying mathematical framework is applicable to a variety of resource allocation problems in the field of wireless networking, such as cognitive radio \cite{khan2013aso}, channel selection and network coding \cite{duffy2011dcs}.
@@ -750,9 +750,9 @@ Namely, it suggests a distributed approach for adjusting the schedule length to 
 Furthermore, it introduces the concept of stickiness, whereby the stations stick to a deterministic backoff even after a transmission failure, for increased schedule robustness. 
 %We will take a closer look into these two contributions.
 
-Notice that, if the protocol is used as described in the previous section, there is a maximum number of stations that can be accommodated in a collision-free fashion.
-In other words, if there were more stations than columns in Fig.~\ref{fig:csma_eca_compact}, it would not be possible to assign the stations to columns in such a way that there would be a single station in each column.
-This is the counting argument that is often referred to as the pigeonhole principle.
+%Notice that, if the protocol is used as described in the previous section, there is a maximum number of stations that can be accommodated in a collision-free fashion.
+%In other words, if there were more stations than columns in Fig.~\ref{fig:csma_eca_compact}, it would not be possible to assign the stations to columns in such a way that there would be a single station in each column.
+%This is the counting argument that is often referred to as the pigeonhole principle.
 %If there are more pigeons than pigeonholes, then there is at least one pigeonhole with two pigeons.
 
 %Obviously, a mechanism that dynamically adjusted the number of columns (i.e., the value of the deterministic backoff after successes) as a function of the number of contending stations would solve the issue.
@@ -872,7 +872,7 @@ In the second part of the paper we have reviewed different contributions that ei
 We have also discussed the distributed adjustment of the schedule length to accommodate a potentially large number of contenders in a collision-free fashion.
 And we have introduced stickiness, which reduces the time required to construct the collision-free schedule and increases the robustness of the schedule in scenarios with channel errors or new stations joining the channel.
 
-As a summary, we have provided an overview of a promising approach that could substantially reduce the problem of collisions in next generation WLANs.
+%As a summary, we have provided an overview of a promising approach that could substantially reduce the problem of collisions in next generation WLANs.
 
 
 
