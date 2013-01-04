@@ -558,23 +558,23 @@ For this reason, the original protocol was followed by other derivatives that in
 Two of these derivatives are Slotted Aloha and Reservation Aloha.
 
 The Slotted Aloha protocol divides the time into fixed length slots and the stations can transmit only at the beginning of those slots.
-In doing so, it decreases the chances of collisions and, under the assumption of fixed packet length that perfectly fits into the above mentioned fixed slot length, it doubles the throughput of the original Aloha.
+In doing so, it decreases the chances of collisions and, under the assumption of fixed packet length that perfectly fits into the aforementioned fixed slot length, it doubles the throughput of the original Aloha.
 
 Reservation Aloha \cite{crowther1973sbc,tasaka1983spr} extends Slotted Aloha with a reservation mechanism.
-Reservation Aloha was intended for random access satellite communications and assumes that the stations listen continuously to the channel and can identify which slots are occupied and which slots are free.
-In  Reservation Aloha, a number of consecutive  time slots is grouped in a frame.
+Reservation Aloha was intended for random access satellite communications and assumes that the stations listen continuously to the channel and can distinguish between occupied and free slots.
+In  Reservation Aloha, a number of consecutive  time slots are grouped in a frame.
 The frames are useful in the reservation process and they all contain the same number of slots.
-As an example, when a station successfully transmits in the first slot of a frame, it implicitly makes a reservation on the first slot of the following frame.
+When a station successfully transmits in a given slot of a frame, it implicitly makes a reservation on the same slot of the following frame.
 This reservation can be very advantageous in some networks, increasing the capacity and reducing the delay.
-In Reservation Aloha, the different nodes implicitly agree on a collision-free schedule that results in a better utilization of the common channel.
+In Reservation Aloha, different nodes implicitly agree on a collision-free schedule that results in a better utilization of the shared channel.
 However, Reservation Aloha also introduces some complexities, such as choosing the right frame size or handling the situations in which there are more stations than available slots in a frame.
-Both Slotted Aloha and Reservation Aloha use fixed size slots.
+Both Slotted Aloha and Reservation Aloha use fixed-sized slots.
 
 The original Aloha network was designed for inter-island communication.
 The Slotted Aloha and the Reservation Aloha protocols were used in satellite communications.
 Wireless Local Area Networks (WLANs) represent a different scenario because the distances are much shorter.
 When the propagation times are short compared to the duration of the transmission of a packet, and all the stations can hear each other's transmissions, empty slots can be made much shorter than busy slots.
-This way the network performance can be improved, since the channel will be idle for a smaller fraction of time and therefore there will be more time for successful transmissions.
+This way the network performance can be improved, since the channel will be idle for a smaller fraction of time and therefore, there will be more time for successful transmissions.
 It is possible to shorten the empty slots in this case because, when stations are close to each other, they can quickly detect whether a slot is busy or empty by simply sensing the medium at the beginning of each slot.
 This technique is called Carrier Sense Multiple Access (CSMA) and is used in WLANs that implement the IEEE 802.11 standard.
 IEEE 802.11 WLANs are popularly known by their certification name, WiFi, and are prevalent in the marketplace.
@@ -584,12 +584,12 @@ It is not the goal of this paper to delve into the details of the standard, but 
 Recently, different research initiatives have suggested to combine the advantages of Reservation Aloha and CSMA (e.g., \cite{barcelo2008lba,he2009srb,barcelo2010fcc,fang2011dlm,barcelo2011tcf,martorell2012pec}). 
 The goal is to distributively construct a collision-free schedule that repeats periodically.
 This schedule consists of some short empty slots and some long successful slots.
-The novelty of our proposed protocol is that long collision slots are avoided thus substantially increasing the network throughput.
+The novelty of our proposed protocol is that long collision slots are avoided, thus substantially increasing the network throughput.
 The fact that the participating stations transmit in a round-robin fashion offers good jitter and fairness properties.
 
 The motivation of this paper is to offer an introduction to this new family of protocols and provide an overview of recent work in this area.
 We will describe CSMA/ECA (where ECA stands for Enhanced Collision Avoidance) as an example of a contention protocol that uses a deterministic backoff after successful transmissions to reduce the number of collisions.
-Then we will review different related contributions to discuss  which are the research challenges, the performance gains, and the scenarios of interest and applicability.
+Then we will review different related contributions to discuss  the research challenges, the performance gains, and the scenarios of interest and applicability.
 We will also shortly mention the generality of the underlying principle and the possibility of using it for diverse problems in the field of radio resource management.
 
 %As pointed by some of the provided references, the general framework that we use in our description of CSMA/ECA has applicability to other problems in the networking and communications field, such as network coding and channel assignment.
@@ -618,7 +618,7 @@ We classify the slots as either empty, if no station transmits, or busy, if one 
 Among busy slots, we differentiate between successful slots, when there is a single transmission, and collision slots, when multiple stations simultaneously transmit.
 Empty slots are relatively short and of constant duration, which is specified by the standard.
 Contrastingly, busy slots are of variable length. 
-Since the stations can use carrier sensing to detect the end of a transmission, it is possible to synchronize the nodes to the end of that variable length transmission.
+Since the stations can use carrier sensing to detect the end of a transmission, it is possible to synchronize the nodes to the end of variable length transmissions.
 The fact that the empty slots can be orders of magnitude shorter than the busy slots represents a performance gain over those approaches in which the slot size is fixed and constant.
 
 In wired networks, it is possible for the nodes involved in a collision to detect the collision while it is taking place and immediately stop transmitting.
@@ -626,13 +626,10 @@ This technique is called CSMA with collision detection (CSMA/CD) and keeps the d
 
 Contrastingly, wireless devices do not have the possibility to detect a collision while they are transmitting.
 In fact, wireless stations can only learn about the success (or failure) of a transmission by means of feedback (or lack thereof) from the receiver.
-For this reason, the length of a collision slot is approximately equal to the length of the longest of the different packet transmissions involved in the collision.
+For this reason, the length of a collision slot is approximately equal to the length of the longest transmission involved in the collision.
 
-%The collision avoidance mechanism of CSMA/CA requires the stations to precede transmissions by a random backoff.
-%There is an exception to this rule: a station that joins the contention and senses the channel idle for an amount of time specified in the standard is allowed to immediately transmit.
-%Nevertheless, we can ignore this exception in our initial discussion and, for the sake of simplicity, assume that the stations always backoff for a random number of slots before transmitting.
 To reduce the likelihood of collisions in CSMA/CA, the channel is divided into slots and transmissions are synchronized to slot borders and preceded by a random backoff.
-In particular, the stations randomly choose a backoff value and set a backoff counter to that value.
+In particular, stations performing backoff set a backoff counter to a randomly chosen value and decrement it by one at every slot.
 Then, the stations decrement the backoff values by one in every slot.
 The transmission occurs when the backoff counter reaches zero.
 
@@ -680,7 +677,7 @@ To better understand the construction of the collision-free schedule, it is usef
 In order to depict the contention for the channel when the number of contenders is high, we will need a more compact representation such as the one used in Fig.~\ref{fig:ca_vs_eca_compact}.
 For convenience, we draw all the slots with equal length.
 Each slot is numbered and the transmissions of the stations are represented as disks in the slots.
-There are six different stations competing for the channel and the hatching pattern of each disk identifies which is the transmitting station.
+There are six different stations competing for the channel and the hatching pattern of each disk identifies the transmitting station.
 
 \begin{figure*}[!t]
 \centering
@@ -692,8 +689,6 @@ There are six different stations competing for the channel and the hatching patt
 \label{fig:ca_vs_eca_compact}
 \end{figure*}
 
-%In CSMA/CA all the transmissions are preceded by a random backoff, and therefore no collision-free schedule is reached no matter how long the system runs.
-%On the other hand, in CSMA/ECA the stations use a deterministic backoff after successful transmissions.
 As in the previous example in Fig.~\ref{fig:csma_eca}, in the CSMA/ECA example in Fig.~\ref{fig:csma_eca_compact} the stations use a deterministic backoff after successful transmissions.
 For convenience, the slots have been arranged in such a way that a deterministic backoff is represented by a new transmission in the same column of the following row.
 As an example, the CSMA/ECA station that successfully transmits in slot 1 transmits again in slot 17, in the same column.
@@ -738,7 +733,7 @@ In this section we will summarize a small subset of representative contributions
 %Some of the issues we will be looking at are the underlying mathematical framework, backward compatibility, operation in the presence of errors, operation in networks with a very large number of contenders and the performance advantages of using a deterministic backoff after successful transmissions. 
 
 \subsection{Underlying mathematical framework}
-Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, the underlying mathematical framework is applicable to a variety of resource allocation problems in the field of wireless networking, such as cognitive radio \cite{khan2013aso}, channel selection and network coding \cite{duffy2011dcs}.
+Even though CSMA/ECA was initially suggested to prevent collisions in WLANs, the underlying mathematical framework is applicable to various resource allocation problems in the field of wireless networking, such as cognitive radio \cite{khan2013aso}, channel selection and network coding \cite{duffy2011dcs}.
 The construction of a collision-free schedule in CSMA/ECA is in fact just an instance of a Constraint Satisfaction Problem (CSP) that the participating entities need to solve without explicit communication.
 It is proven in \cite{duffy2011dcs} that the stochastic decentralized CSP solver (which is a generalization of the protocol that we have introduced in the previous section) guarantees that a solution will be found in finite time, if a solution exists.
 Furthermore, its performance is competitive with some of the well-known centralized CSP solvers.
