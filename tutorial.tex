@@ -787,7 +787,7 @@ Transmitting more than one packet when accessing the channel is possible and the
 Under ideal conditions, a station using a deterministic backoff may collide only with a station using a random backoff.
 If a deterministic station backoff collides with a random station, only one of them needs to choose a random backoff to prevent a new collision of the two stations in their next transmission attempt.
 In fact, switching the deterministic station to random behaviour only increases the chance of collision with other deterministic stations.
-Consequently, the protocol might be improved if deterministic stations kept using a deterministic even backoff after collisions.
+Consequently, the protocol might be improved if deterministic stations kept using a deterministic backoff even after collisions.
 The property of using a deterministic backoff after suffering collisions is called ``stickyness'' \cite{fang2011dlm}.
 
 In ideal conditions, this solution has several advantages.
@@ -834,13 +834,15 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 
 A detailed performance evaluation of CSMA/ECA is offered in \cite{martorell2012pec}.
 This paper presents an analytical model and simulations that use realistic channel realizations and the Automated Rate Fallback (ARF).
-The paper also offers results for CSMA/CA with and without the Request-To-Send/Clear-To-Send (RTS/CTS) four-way handshake.
+For comparison, results are also presented for CSMA/CA with and without the Request-To-Send/Clear-To-Send (RTS/CTS) four-way handshake.
+
+%The paper compares CSMA/ECA and CSMA/CA with and without the Request-To-Send/Clear-To-Send (RTS/CTS) four-way handshake.
 
 ARF is introduced to adapt the transmission rate to the channel conditions and it reduces the transmission rate after unsuccessful transmissions.
-This approach does not work well with CSMA/CA when collision occurs, as ARF misinterprets the failures as channel errors and reduces the transmission rate.
-This problem can be alleviated by using RTS/CTS that can be used to differentiate between collisions and channel errors, but RTS/CTS penalizes the performance due to the overheads.
+This approach does not work well with CSMA/CA when collisions occur, as ARF misinterprets the failures as channel errors and reduces the transmission rate.
+This problem can be alleviated by using RTS/CTS that can differentiate between collisions and channel errors, but RTS/CTS penalizes the performance due to the overheads additional.
 CSMA/ECA solves the problem by preventing collision, without adding any additional overhead.
-The curves in Fig.~\ref{fig:performance} (reproduced from \cite{martorell2012pec}) shows that CSMA/ECA outperforms CSMA/CA and also CSMA/CA with RTS/CTS.
+The curves in Fig.~\ref{fig:performance} (reproduced from \cite{martorell2012pec}) show that CSMA/ECA outperforms CSMA/CA and also CSMA/CA with RTS/CTS.
 
 %The paper offers results for the two handshaking mechanisms in IEEE 802.11: Basic Access (BA) and request-to-send/clear-to-send (RTS/CTS).
 
@@ -863,7 +865,7 @@ The curves in Fig.~\ref{fig:performance} (reproduced from \cite{martorell2012pec
 \section{Conclusion} \label{sec:conclusion}
 
 In this paper we have discussed the use of a deterministic backoff after collisions to prevent collisions in WLANs and deliver substantial performance benefits.
-The use of a deterministic backoff represents a simple modification to the currently used protocol, thus offering backward compatibility and fair coexistence with already deployed hardware.
+The deterministic backoff represents a simple evolution to the currently used protocol, thus offering backward compatibility and fair coexistence with already deployed hardware.
 
 
 Similar techniques have been used to address other problems in wireless networking such as channel assignment, spreading code assignment and channel sensing order assignment in cognitive radio.

@@ -810,7 +810,7 @@ Transmitting more than one packet when accessing the channel is possible and the
 \DIFdelbegin \DIFdel{Notice that, in }\DIFdelend \DIFaddbegin \DIFadd{Under }\DIFaddend ideal conditions, a station using a deterministic backoff may collide only with a station using a random backoff.
 If a \DIFdelbegin \DIFdel{station that used a deterministic }\DIFdelend \DIFaddbegin \DIFadd{deterministic station }\DIFaddend backoff collides with a \DIFdelbegin \DIFdel{station that used a random backoff}\DIFdelend \DIFaddbegin \DIFadd{random station}\DIFaddend , only one of them needs to choose a random backoff to prevent a new collision of the two stations in their next transmission attempt.
 \DIFaddbegin \DIFadd{In fact, switching the deterministic station to random behaviour only increases the chance of collision with other deterministic stations.
-}\DIFaddend Consequently, the protocol might be improved if deterministic stations kept using a deterministic \DIFaddbegin \DIFadd{even }\DIFaddend backoff after collisions.
+}\DIFaddend Consequently, the protocol might be improved if deterministic stations kept using a deterministic backoff \DIFaddbegin \DIFadd{even }\DIFaddend after collisions.
 The property of using a deterministic backoff after suffering collisions is called \DIFdelbegin \DIFdel{in }\DIFdelend ``stickyness'' \cite{fang2011dlm}.
 
 In ideal conditions, this solution has several advantages.
@@ -857,37 +857,40 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 \end{figure}
 
 A detailed performance evaluation of \DIFdelbegin \DIFdel{the new protocol }\DIFdelend \DIFaddbegin \DIFadd{CSMA/ECA }\DIFaddend is offered in \cite{martorell2012pec}.
-This paper presents an analytical model and simulations that use realistic channel realizations and the \DIFdelbegin \DIFdel{automated rate fallback }\DIFdelend \DIFaddbegin \DIFadd{Automated Rate Fallback }\DIFaddend (ARF)\DIFdelbegin \DIFdel{mechanism for the selection of the modulation and channel coding scheme}\DIFdelend .
-The paper \DIFaddbegin \DIFadd{also }\DIFaddend offers results for \DIFdelbegin \DIFdel{the two handshaking mechanisms in IEEE 802.11: Basic Access (BA) and request-to-send/clear-to-send (RTS/CTS).
+This paper presents an analytical model and simulations that use realistic channel realizations and the \DIFdelbegin \DIFdel{automated rate fallback }\DIFdelend \DIFaddbegin \DIFadd{Automated Rate Fallback }\DIFaddend (ARF)\DIFdelbegin \DIFdel{mechanism for the selection of the modulation and channel coding scheme.
+The paper offers results for the two handshaking mechanisms in IEEE 802.11: Basic Access (BA) and request-to-send/clear-to-send (RTS/CTS).
 %DIF < BA is simpler as it includes only a transmission and an acknowledgement.
 %DIF < In RTS/CTS, the transmission and the acknowledgement are preceded by the RTS and CTS signaling frames.
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
-\DIFdel{An exponential packet length distribution is considered and the curves that compare }\DIFdelend CSMA/CA \DIFdelbegin \DIFdel{and CSMA}\DIFdelend \DIFaddbegin \DIFadd{with and without the Request-To-Send}\DIFaddend /\DIFdelbegin \DIFdel{E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the BA and }\DIFdelend \DIFaddbegin \DIFadd{Clear-To-Send (}\DIFaddend RTS/CTS\DIFdelbegin \DIFdel{the scheme.
+\DIFdel{An exponential packet length distribution is considered and the curves that compare }\DIFdelend \DIFaddbegin \DIFadd{.
+For comparison, results are also presented for }\DIFaddend CSMA/CA \DIFdelbegin \DIFdel{and CSMA}\DIFdelend \DIFaddbegin \DIFadd{with and without the Request-To-Send}\DIFaddend /\DIFdelbegin \DIFdel{E2CA (See Fig.~\ref{fig:performance}) show a substantial throughput improvement, for both the BA and }\DIFdelend \DIFaddbegin \DIFadd{Clear-To-Send (}\DIFaddend RTS/CTS\DIFdelbegin \DIFdel{the scheme.
 The details of the study are available in }%DIFDELCMD < \cite{martorell2012pec}%%%
 \DIFdelend \DIFaddbegin \DIFadd{) four-way handshake}\DIFaddend .
 
-\DIFdelbegin \DIFdel{The purpose of ARF is }\DIFdelend \DIFaddbegin \DIFadd{ARF is introduced }\DIFaddend to adapt the transmission rate to the channel conditions \DIFdelbegin \DIFdel{.
+\DIFdelbegin \DIFdel{The purpose of ARF is }\DIFdelend %DIF > The paper compares CSMA/ECA and CSMA/CA with and without the Request-To-Send/Clear-To-Send (RTS/CTS) four-way handshake.
+\DIFaddbegin 
+
+\DIFadd{ARF is introduced }\DIFaddend to adapt the transmission rate to the channel conditions \DIFdelbegin \DIFdel{.
 In unfavorable channel conditions, ARF uses slower (and more robust) transmission rates.
-The ARF mechanism simply switches to slower transmission rates after unsuccessful transmissions, as it believes that they are an indication of unfavorable channel conditions.
+The ARF mechanism simply switches to slower transmission rates }\DIFdelend \DIFaddbegin \DIFadd{and it reduces the transmission rate }\DIFaddend after unsuccessful transmissions\DIFdelbegin \DIFdel{, as it believes that they are an indication of unfavorable channel conditions.
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
-\DIFdel{The problem is that, when BA is used, ARF cannot differentiate between channel errors and collisions.
-In any case, it slows down }\DIFdelend \DIFaddbegin \DIFadd{and it reduces }\DIFaddend the transmission rate \DIFdelbegin \DIFdel{.
-When ARF is combined }\DIFdelend \DIFaddbegin \DIFadd{after unsuccessful transmissions.
-This approach does not work well }\DIFaddend with CSMA/CA \DIFdelbegin \DIFdel{in scenarios with a large number of contenders, the high number of collisions slows down }\DIFdelend \DIFaddbegin \DIFadd{when collision occurs, as ARF misinterprets the failures as channel errors and reduces }\DIFaddend the transmission rate\DIFdelbegin \DIFdel{and therefore the performance is doubly penalized: firstly because of the collisions and secondly because of the slower rates.
+\DIFdel{The problem is that, when BA is used, ARF cannot differentiate between }\DIFdelend \DIFaddbegin \DIFadd{.
+This approach does not work well with CSMA/CA when collisions occur, as ARF misinterprets the failures as }\DIFaddend channel errors and \DIFdelbegin \DIFdel{collisions.
+In any case, it slows down }\DIFdelend \DIFaddbegin \DIFadd{reduces }\DIFaddend the transmission rate.
+\DIFdelbegin \DIFdel{When ARF is combined with CSMA}\DIFdelend \DIFaddbegin \DIFadd{This problem can be alleviated by using RTS}\DIFaddend /\DIFdelbegin \DIFdel{CA in scenarios with a large number of contenders, the high number of collisions slows down the transmission rate and therefore the performance is doubly penalized: firstly because of the collisions and secondly because of the slower rates.
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
-\DIFdel{This problem is apparent in the BA curve in Fig.~\ref{fig:performance}.
-The use of }\DIFdelend \DIFaddbegin \DIFadd{.
-This problem can be alleviated by using }\DIFaddend RTS/CTS \DIFdelbegin \DIFdel{involves additional handshaking control frames and makes it possible }\DIFdelend \DIFaddbegin \DIFadd{that can be used }\DIFaddend to differentiate between \DIFdelbegin \DIFdel{channel errors and collisions.
-Therefore CSMA/CA-RTS}\DIFdelend \DIFaddbegin \DIFadd{collisions and channel errors, but RTS}\DIFaddend /CTS \DIFdelbegin \DIFdel{outperforms }\DIFdelend \DIFaddbegin \DIFadd{penalizes the performance due to the overheads.
-}\DIFaddend CSMA/\DIFdelbegin \DIFdel{CA-BA when the number of contenders is large.
-The best performance is obtained by }\DIFdelend \DIFaddbegin \DIFadd{ECA solves the problem by preventing collision, without adding any additional overhead.
-The curves in Fig.~\ref{fig:performance} (reproduced from }\cite{martorell2012pec}\DIFadd{) shows that }\DIFaddend CSMA/\DIFdelbegin \DIFdel{E2CA-BA as it prevents collisions and does not suffer the overhead of the extra }\DIFdelend \DIFaddbegin \DIFadd{ECA outperforms CSMA/CA and also CSMA/CA with }\DIFaddend RTS/CTS\DIFdelbegin \DIFdel{packets}\DIFdelend .
+\DIFdel{This problem is apparent in the BA curve }\DIFdelend \DIFaddbegin \DIFadd{CTS that can differentiate between collisions and channel errors, but RTS/CTS penalizes the performance due to the overheads additional.
+CSMA/ECA solves the problem by preventing collision, without adding any additional overhead.
+The curves }\DIFaddend in Fig.~\ref{fig:performance} \DIFdelbegin \DIFdel{.
+The use of RTS/CTS involves additional handshaking control frames and makes it possible to differentiate between channel errors and collisions.
+Therefore }\DIFdelend \DIFaddbegin \DIFadd{(reproduced from }\cite{martorell2012pec}\DIFadd{) show that }\DIFaddend CSMA/\DIFdelbegin \DIFdel{CA-RTS/CTS }\DIFdelend \DIFaddbegin \DIFadd{ECA }\DIFaddend outperforms CSMA/\DIFdelbegin \DIFdel{CA-BA when the number of contenders is large.
+The best performance is obtained by }\DIFdelend \DIFaddbegin \DIFadd{CA and also }\DIFaddend CSMA/\DIFdelbegin \DIFdel{E2CA-BA as it prevents collisions and does not suffer the overhead of the extra }\DIFdelend \DIFaddbegin \DIFadd{CA with }\DIFaddend RTS/CTS\DIFdelbegin \DIFdel{packets}\DIFdelend .
 
 %DIF > The paper offers results for the two handshaking mechanisms in IEEE 802.11: Basic Access (BA) and request-to-send/clear-to-send (RTS/CTS).
 \DIFaddbegin 
@@ -915,7 +918,7 @@ The curves in Fig.~\ref{fig:performance} (reproduced from }\cite{martorell2012pe
 This protocol requires neither additional processing costs nor message interchange.
 All it needs is for the stations to use }\DIFdelend \DIFaddbegin \DIFadd{discussed the use of }\DIFaddend a deterministic backoff after \DIFdelbegin \DIFdel{successful transmissions.
 }\DIFdelend \DIFaddbegin \DIFadd{collisions to prevent collisions in WLANs and deliver substantial performance benefits.
-The use of a deterministic backoff represents a simple modification to the currently used protocol, thus offering backward compatibility and fair coexistence with already deployed hardware.
+The deterministic backoff represents a simple evolution to the currently used protocol, thus offering backward compatibility and fair coexistence with already deployed hardware.
 }
 
 
