@@ -407,14 +407,15 @@
 %
 
 \author{
-%	Jaume~Barcelo,~%\IEEEmembership{Member,~IEEE,}
-%        Boris~Bellalta,~%\IEEEmembership{Member,~IEEE,}
-%        Miquel~Oliver,~%\IEEEmembership{Member,~IEEE,}
-%        and~David~Malone%~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
-%\thanks{J. Barcelo is with the Dept. de Ingenieria Telematica, Universidad Carlos III de Madrid, Spain (email:jaume.barcelo@uc3m.es).\newline
-%B. Bellata is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:boris.bellalta@upf.edu).\newline
-%M. Oliver is with the Dept. de Tecnologies de la Informacio i les Comunicacions, Universitat Pompeu Fabra, Spain (email:miquel.oliver@upf.edu).\newline
-%D. Malone is with the Hamilton Institute, National University of Ireland, Maynooth, Ireland (email:David.Malone@nuim.ie)}%
+	Jaume~Barcelo,~%\IEEEmembership{Member,~IEEE,}
+    Azadeh~Faridi,~%\IEEEmembership{Member,~IEEE,}
+    Boris~Bellalta,~%\IEEEmembership{Member,~IEEE,}
+    Gabriel~Martorell,~%\IEEEmembership{Member,~IEEE,}
+    and~David~Malone%~\IEEEmembership{Life~Fellow,~IEEE}% <-this % stops a space
+\thanks{J. Barcelo, Azadeh Faridi and Boris Bellalta are with Universitat Pompeu Fabra.\newline
+G. Martorell is with Universitat de les Illes Balears.\newline
+D. Malone is with the Hamilton Institute, National University of Ireland.\newline
+The corresponding author is J. Barcelo. E-mail address: jaume.barcelo@upf.edu Postal Address: Roc Boronat, 138, 08018, Barcelona.}%
 }
 
 
@@ -472,10 +473,16 @@
 
 \begin{abstract}
 %\boldmath
-In this paper we have summarized a family of MAC protocols that offer significant performance improvement over CSMA/CA. In its most basic form, CSMA/ECA achieves this performance boost by simply using a deterministic backoff after each successful transmission and reverting back to the CSMA/CA random behavior when a collision is detected. Under certain conditions, this leads to the construction of a collision-free deterministic schedule in a completely distributed fashion. We have then discussed possible variations to CSMA/ECA that can further improve the performance under more realistic conditions. CSMA/ECA and its variants represent a simple evolution of the currently prevalent protocol CSMA/CA, thus offering backward compatibility and fair coexistence with already deployed hardware. 
+In wireless local area networks (WLANs), a media access protocol arbitrates the access to
+In current IEEE 802.11 WLANs, carrier sense multiple access with collision avoidance (CSM
+Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle va
+CSMA/ECA significantly reduces the collision probability and, under certain conditions, l
+The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic 
+This deterministic backoff is a constant and is the same for all the stations.
 
-Similar techniques can be used to address other problems in wireless networking, such as channel assignment, spreading
-code assignment, and channel sensing-order assignment in cognitive radio.
+The first part of the paper is of tutorial nature, offering an introduction to the basic 
+The second part of the paper surveys related contributions, briefly summarizing the main 
+
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -814,13 +821,10 @@ CSMA/ECA solves the problem by preventing collisions, without adding any additio
 The curves in Fig.~\ref{fig:performance} (reproduced from \cite{martorell2012pec}) show that CSMA/ECA outperforms CSMA/CA and also CSMA/CA with RTS/CTS.
 
 \section{Conclusion} \label{sec:conclusion}
+In this paper we have summarized a family of MAC protocols that offer significant performance improvement over CSMA/CA. In its most basic form, CSMA/ECA achieves this performance boost by simply using a deterministic backoff after each successful transmission and reverting back to the CSMA/CA random behavior when a collision is detected. Under certain conditions, this leads to the construction of a collision-free deterministic schedule in a completely distributed fashion. We have then discussed possible variations to CSMA/ECA that can further improve the performance under more realistic conditions. CSMA/ECA and its variants represent a simple evolution of the currently prevalent protocol CSMA/CA, thus offering backward compatibility and fair coexistence with already deployed hardware. 
 
-In this paper we have discussed the use of a deterministic backoff after successful transmission to prevent collisions in WLANs and to deliver substantial performance benefits.
-The deterministic backoff represents a simple evolution to the currently used protocol, thus offering backward compatibility and fair coexistence with already deployed hardware.
-
-
-Similar techniques have been used to address other problems in wireless networking such as channel assignment, spreading code assignment and channel sensing order assignment in cognitive radio.
-
+Similar techniques can be used to address other problems in wireless networking, such as channel assignment, spreading
+code assignment, and channel sensing-order assignment in cognitive radio.
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
