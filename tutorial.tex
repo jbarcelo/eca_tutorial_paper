@@ -473,15 +473,16 @@ The corresponding author is J. Barcelo. E-mail address: jaume.barcelo@upf.edu Po
 
 \begin{abstract}
 %\boldmath
-In wireless local area networks (WLANs), a media access protocol arbitrates the access to
-In current IEEE 802.11 WLANs, carrier sense multiple access with collision avoidance (CSM
-Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle va
-CSMA/ECA significantly reduces the collision probability and, under certain conditions, l
-The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic 
+In wireless local area networks (WLANs), a media access protocol arbitrates the access to the channel.
+In current IEEE 802.11 WLANs, carrier sense multiple access with collision avoidance (CSMA/CA) is used.
+Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle variant of the well-known CSMA/CA algorithm that offers substantial performance benefits.
+CSMA/ECA significantly reduces the collision probability and, under certain conditions, leads to a completely collision-free schedule.
+The only difference between CSMA/CA and CSMA/ECA is that the latter uses a deterministic backoff after successful transmissions.
 This deterministic backoff is a constant and is the same for all the stations.
 
-The first part of the paper is of tutorial nature, offering an introduction to the basic 
-The second part of the paper surveys related contributions, briefly summarizing the main 
+The first part of the paper is of tutorial nature, offering an introduction to the basic operation of CSMA/ECA and describing the benefits of this approach in a qualitative manner.
+The second part of the paper surveys related contributions, briefly summarizing the main challenges and potential solutions, and also introducing variants and derivatives of CSMA/ECA.
+
 
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -682,7 +683,7 @@ There are six different stations competing for the channel and the hatching patt
 As in the previous example in Fig.~\ref{fig:csma_eca}, in the CSMA/ECA example in Fig.~\ref{fig:csma_eca_compact} the stations use a deterministic backoff after successful transmissions.
 For convenience, the slots have been arranged in such a way that a deterministic backoff is represented by a new transmission in the same column of the following row.
 As an example, the CSMA/ECA station that successfully transmits in slot 1 transmits again in slot 17, in the same column.
-If we focus in the two CSMA/ECA stations that collide in slot 7, we realize that they use a random backoff which means that the new transmissions will probably end up in a different column.
+If we focus on the two CSMA/ECA stations that collide in slot 7, we realize that they use a random backoff which means that the new transmissions will probably end up in a different column.
 In this particular example, the colliding stations in slot 7 retransmit in slot 17 and 27.
 In CSMA/ECA, when all the stations successfully transmit in the same cycle, they all stick to the same column.
 At this point, the collision-free schedule has already been constructed as we can observe in the last two rows of Fig.~\ref{fig:csma_eca_compact}.
@@ -692,7 +693,7 @@ Because the deterministic stations may only collide with random stations and not
 This means that CSMA/ECA also outperforms CSMA/CA in highly dynamic scenarios in which the stations join and leave the contention.
 In the extreme case in which the stations join the contention to transmit a single packet and then they leave, the performance of CSMA/ECA falls back to that of CSMA/CA.
 
-A key aspect in the proposed protocol is that of the schedule length, which is equivalent to the deterministic backoff used after successful transmissions.
+A key aspect of the proposed protocol is that of the schedule length, which is equivalent to the deterministic backoff used after successful transmissions.
 If the schedule length is excessively large compared to the number of contenders, the large number of empty slots will slightly penalize the performance.
 On the other hand, if the schedule is too short, it will not be possible to accommodate the collision-free operation of all the participants.
 As pointed out in \cite{fang2011dlm}, having a schedule that is larger than the number of contenders is better than having one that is shorter.
@@ -805,7 +806,7 @@ The possibility of CSMA/ECA to peacefully coexist with the previous protocol ens
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\linewidth]{figures/performance}
-\caption{The figure compares the analytical and simulation performance curves of CSMA/CA and CSMA/E2CA for an increasing number of contenders.}
+\caption{Performance curves of CSMA/CA and CSMA/E2CA for an increasing number of contenders.}
 \label{fig:performance}
 \end{figure}
 
