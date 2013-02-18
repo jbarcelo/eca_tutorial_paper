@@ -473,7 +473,7 @@ The corresponding author is J. Barcelo. E-mail address: jaume.barcelo@upf.edu Po
 
 \begin{abstract}
 %\boldmath
-In wireless local area networks (WLANs), a media access protocol arbitrates the access to the channel.
+In wireless local area networks (WLANs), a media access protocol arbitrates access to the channel.
 In current IEEE 802.11 WLANs, carrier sense multiple access with collision avoidance (CSMA/CA) is used.
 Carrier sense multiple access with enhanced collision avoidance (CSMA/ECA) is a subtle variant of the well-known CSMA/CA algorithm that offers substantial performance benefits.
 CSMA/ECA significantly reduces the collision probability and, under certain conditions, leads to a completely collision-free schedule.
@@ -545,7 +545,7 @@ These collisions can be resolved by means of retransmissions, but they increase 
 Despite collisions being detrimental for the network performance, Aloha is still an interesting option for channel access because it exhibits some key properties.
 The first one is its distributed nature, since Aloha does not require any central entity to operate.
 Aloha is also very simple and easy to implement.
-And it is also extremely robust as it can quickly recover from network problems such as a short interference burst.
+Furthermore, it is also extremely robust as it can quickly recover from network problems such as a short interference burst.
 Finally, the Aloha protocol does not require a heavy signaling overhead.
 The combination of these properties was the fundamental reason for the success of Aloha and similar protocols that followed.
 
@@ -577,7 +577,7 @@ IEEE 802.11 WLANs are popularly known by their certification name, WiFi, and are
 It is not the goal of this paper to delve into the details of the standard, but we will use it as a reference CSMA implementation.
 
 Recently, different research initiatives have suggested to combine the advantages of Reservation Aloha and CSMA (e.g., \cite{barcelo2008lba,he2009srb,barcelo2010fcc,fang2011dlm,barcelo2011tcf,martorell2012pec}). 
-The goal is to distributively construct a collision-free schedule that repeats periodically.
+The goal is to construct, in a distributed way, a collision-free schedule that repeats periodically.
 This schedule consists of some short empty slots and some long successful slots.
 The novelty of our proposed protocol is that long collision slots are avoided, thus substantially increasing the network throughput.
 The fact that the participating stations transmit in a round-robin fashion offers good jitter and fairness properties.
@@ -609,15 +609,16 @@ Most of the currently deployed WLANs are compliant with the IEEE 802.11 standard
 Thanks to the carrier sense capabilities of the CSMA stations, channel time can be divided in variable length slots.
 We classify the slots as either empty, if no station transmits, or busy, if one or more stations transmit.
 Among busy slots, we differentiate between successful slots, when there is a single transmission, and collision slots, when multiple stations simultaneously transmit.
-Empty slots are relatively short and of constant duration, which is specified by the standard.
-Contrastingly, busy slots are of variable length. 
+Empty slots are relatively short and of constant duration, which is specified by the standard, and  busy slots are of variable length. 
+As an example, the empty slot duration for IEEE 802.11b is 20 $\mu$s and a busy slot can be 1200 $\mu$s long.
+
 Since the stations can use carrier sensing to detect the end of a transmission, it is possible to synchronize the nodes to the end of variable length transmissions.
 The fact that the empty slots can be orders of magnitude shorter than the busy slots represents a performance gain over those approaches in which the slot size is fixed and constant.
 
 In wired networks, it is possible for the nodes involved in a collision to detect the collision while it is taking place and immediately stop transmitting.
 This technique is called CSMA with collision detection (CSMA/CD) and keeps the duration of collision slots very short.
 
-Contrastingly, wireless devices do not have the possibility to detect a collision while they are transmitting.
+In contrast, wireless devices do not have the possibility to detect a collision while they are transmitting.
 In fact, wireless stations can only learn about the success (or failure) of a transmission by means of feedback (or lack thereof) from the receiver.
 For this reason, the length of a collision slot is approximately equal to the length of the longest transmission involved in the collision.
 
